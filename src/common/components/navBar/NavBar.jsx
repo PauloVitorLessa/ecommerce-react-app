@@ -27,13 +27,23 @@ class NavBar extends React.Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/#">
+                  <Link to={"/"} className="nav-link active">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <Link to={"/regProd"} className="nav-link">
                     Cartas
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/cart"} className="nav-link active">
+                    Carrinho
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/"} className="nav-link active">
+                    Login
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
