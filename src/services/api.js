@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Api = axios.create({
-  baseURL: "https://api-restful-trabalho-final-production.up.railway.app/api",
+  baseURL: "http://localhost:8080/api",
 });
 
 export const CardApi = axios.create({

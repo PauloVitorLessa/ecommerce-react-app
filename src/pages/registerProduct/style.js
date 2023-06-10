@@ -4,15 +4,23 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   place-items: center;
+  gap: 20px;
+
+  input[type="file"] {
+    display: none;
+  }
+  .arquivo {
+    padding-left: 5px;
+    padding-right: 5px;
+    border: solid 1px;
+    cursor: pointer;
+  }
 `;
 
 export const Card_container = styled.div`
-  width: 18rem;
   display: flex;
   flex-direction: column;
-  border: solid 1px gray;
-  border-radius: 2%;
-  justify-content: space-between;
+  padding-top: 50px;
 `;
 
 export const Card_body = styled.div`
