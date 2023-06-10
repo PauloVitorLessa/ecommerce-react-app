@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+  ContentContainer,
+  
+} from "../carrinho/Cart.js";
 
 
 const Cart = () => {
@@ -28,22 +32,24 @@ const Cart = () => {
     }
   };
 
+ 
   return (
-    <div id='containerCart'>
-      <h2>Carrinho de Compras</h2>
-      {cartData ? (
-        <div>
-          <p>idPedido: {cartData.idPedido}</p>
-          <p>Cliente: {cartData.cliente.nome}</p>
-          <p>CPF: {cartData.cliente.cpf}</p>
-          <p>Valor Total: {cartData.valorTotal}</p>
-          <p>Quantidade: {cartData.itensPedidos.quantidade}</p>
-        </div>
-      ) : (
-        <p>Carregando dados do carrinho...</p>
-      )}
-    </div>
+    <ContentContainer className='containerCart'>
+      <h1>Carrinho de Compras</h1>
+      <info_body className='containerCaart'>
+        {cartData ? (
+          <div>
+            <p>idPedido: {cartData.idPedido}</p>
+            <p>Cliente: {cartData.cliente.nome}</p>
+            <p>CPF: {cartData.cliente.cpf}</p>
+            <p>Quantidade: {cartData.itensPedidos.quantidade}</p>
+            <p id='Total'>Valor Total: {cartData.valorTotal}</p>
+          </div>
+        ) : (
+          <p>Carregando dados do carrinho...</p>
+        )}
+      </info_body>
+    </ContentContainer>
   );
 };
-
 export default Cart;
