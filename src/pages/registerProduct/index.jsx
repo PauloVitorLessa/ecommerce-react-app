@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import cardBack from "../../assets/cardBack.jpg";
-import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
 import { ContentContainer, Img_container, Card_container } from "./style.js";
