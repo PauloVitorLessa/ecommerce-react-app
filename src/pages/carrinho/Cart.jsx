@@ -1,37 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartData, setCartData] = useState(null);
 
   useEffect(() => {
-    fetchCartItems();
+    fetchCartData();
   }, []);
 
-  const fetchCartItems = async () => {
+  const fetchCartData = async () => {
     try {
       const response = await axios.get('https://api-restful-trabalho-final-production.up.railway.app/api/pedidos');
-      setCartItems(response.data);
+      const cartItems = response.data;
+      console.log(cartItems);
+
+      if (cartItems.length > 0) {
+        const { idPedido, cliente, valorTotal, itensPedidos } = cartItems[0];
+        const { nome, cpf } = cliente;
+        const { quantidade } = itensPedidos;
+
+        const cartData = { idPedido, cliente: { nome, cpf }, itensPedidos: { quantidade }, valorTotal };
+        setCartData(cartData);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("Erro:", error);
     }
-  }
+  };
 
   return (
-    <div id='container'>
+    <div id='containerCart'>
       <h2>Carrinho de Compras</h2>
-      {cartItems.length === 0 ? (
-        <p>O carrinho está vazio.</p>
+      {cartData ? (
+        <div>
+          <p>idPedido: {cartData.idPedido}</p>
+          <p>Cliente: {cartData.cliente.nome}</p>
+          <p>CPF: {cartData.cliente.cpf}</p>
+          <p>Valor Total: {cartData.valorTotal}</p>
+          <p>Quantidade: {cartData.itensPedidos.quantidade}</p>
+        </div>
       ) : (
-        <ul>
-          {cartItems.map(produto => (
-            <li key={produto.id}>
-              <p>{produto.nome}</p>
-              <p>{produto.preco}</p>
-              <p>{produto.quantidade}</p>
-            </li>
-          ))}
-        </ul>
+        <p>Carregando dados do carrinho...</p>
       )}
     </div>
   );

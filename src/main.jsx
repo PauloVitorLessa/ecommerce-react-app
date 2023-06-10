@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/home/Home.jsx";
+import Cart from "./pages/carrinho/Cart.jsx";
 import RegisterProduct from "./pages/registerProduct/index.jsx";
 import NavBar from "./common/components/navBar/NavBar.jsx";
-import Cart from "./pages/carrinho/Cart.jsx";
 import { GlobalStyle } from "./common/style/GlobalStyle.js";
 import "jquery";
 import "popper.js/dist/umd/popper";
