@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   ContentContainer,
-  
+
 } from "../carrinho/Cart.js";
 
 
 const Cart = () => {
   const [cartData, setCartData] = useState(null);
+  const clienteId = 'ID_DO_CLIENTE'; // Insira o ID do cliente desejado aqui
 
   useEffect(() => {
     fetchCartData();
@@ -15,7 +16,7 @@ const Cart = () => {
 
   const fetchCartData = async () => {
     try {
-      const response = await axios.get('https://api-restful-trabalho-final-production.up.railway.app/api/pedidos');
+      const response = await axios.get(`https://api-restful-trabalho-final-production.up.railway.app/api/pedidos?clienteId=${clienteId}`);
       const cartItems = response.data;
       console.log(cartItems);
 
@@ -32,7 +33,7 @@ const Cart = () => {
     }
   };
 
- 
+
   return (
     <ContentContainer className='containerCart'>
       <h1>Carrinho de Compras</h1>
