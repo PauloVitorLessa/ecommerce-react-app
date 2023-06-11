@@ -1,11 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #AD7DD1 ;
+  background-color: #ad7dd1;
+  h2 {
+    color: #570e8c;
+  }
 `;
 
 export const LoginFormWrapper = styled.form`
@@ -16,7 +19,12 @@ export const LoginFormWrapper = styled.form`
   border-radius: 5%;
   background: #ffffff;
   border: 1px solid #ccc;
-  box-shadow: 27px 16px 3px 0 #570E8C;
+  box-shadow: 27px 16px 3px 0 #570e8c;
+
+  a {
+    padding-top: 15px;
+    color: #570e8c;
+  }
 `;
 
 export const Label = styled.label`

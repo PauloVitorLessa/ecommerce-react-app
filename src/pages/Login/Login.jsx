@@ -1,18 +1,26 @@
-import { useState } from 'react';
-import {
-    Button,
-    FormContainer,
-    LoginFormWrapper,
-    Label,
-    Input
-} from './style'
+import { useState } from "react";
+import { Button, FormContainer, LoginFormWrapper, Label, Input } from "./style";
+import { Link } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  // useEffect(() => {
+  //   async function fetchCategorias() {
+  //     Api.get("/categorias")
+  //       .then((result) => {
+  //         setCategorias(result.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error.response);
+  //       });
+  //   }
+  //   fetchCategorias();
+  // }, []);
+
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -22,25 +30,31 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Lógica de autenticação aqui (por exemplo, chamada a uma API)
-    console.log('Email:', email);
-    console.log('Password:', password);
+    console.log("Email:", email);
+    console.log("Password:", password);
     // Limpar os campos após a submissão
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <FormContainer>
       <LoginFormWrapper onSubmit={handleSubmit}>
+        <h2>Login</h2>
         <Label>
-          Email:
-          <Input type="email" value={email} onChange={handleEmailChange} />
+          Usuário:
+          <Input type="text" value={userName} onChange={handleUserNameChange} />
         </Label>
         <Label>
           Senha:
-          <Input type="password" value={password} onChange={handlePasswordChange} />
+          <Input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
         </Label>
         <Button type="submit">Login</Button>
+        <Link to={"/signup"}>Criar Nova Conta</Link>
       </LoginFormWrapper>
     </FormContainer>
   );
