@@ -1,0 +1,144 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #ad7dd1 !important;
+}
+
+.container{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  background-color: #ad7dd1;
+  padding-top: 50px;
+  padding-bottom: 70px;
+  
+}
+p{
+    text-align: center;
+}
+.signUpH2 {
+    color: #570e8c;
+  }
+
+
+.signUpSection {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+  padding: 20px;
+  border-radius: 5%;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 27px 16px 3px 0 #570e8c;
+}
+
+.signUpForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+    width: 90%;
+}
+
+.signUpA, .signUpA:visited {
+    
+        padding-top: 15px;
+        color: #570e8c;
+      
+}
+
+.signUpInput{
+    height: 30px;
+}
+
+.signUpInput[type="text"],
+.signUpInput[type="password"],
+.signUpButton,
+.signUpTextarea {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 20px;
+}
+
+.SignUpLabel,
+.signUpButton {
+  margin-top: 1rem;
+}
+
+.signUpButton {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background:#570e8c;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+    text-align: left;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.successmsg {
+    background-color: rgb(0, 172, 66);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}

@@ -171,20 +171,3 @@ function RegisterProduct() {
 }
 
 export default RegisterProduct;
-
-// useEffect(() => {
-//   async function handleImagePreview() {
-//     CardApi.get(`/cardinfo.php?name=${cardName}`)
-//       .then((result) => {
-//         setCard(result.data.data[0]);
-//         setCardImage(result.data.data[0].card_images[0]);
-//       })
-//       .catch((error) => {
-//         console.log(error.response);
-//         setCard({ name: "Não Encontrado" });
-//         setCardImage({ image_url: cardBack });
-//       });
-//   }
-
-//   fetchData();
-// }, [cardName]);
