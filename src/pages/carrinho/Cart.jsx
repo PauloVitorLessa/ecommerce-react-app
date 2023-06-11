@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   ContentContainer,
-
+  Title,
+  Line
 } from "../carrinho/Cart.js";
 
 
@@ -36,7 +37,8 @@ const Cart = () => {
 
   return (
     <ContentContainer className='containerCart'>
-      <h1>Carrinho de Compras</h1>
+      <Title>Carrinho</Title>
+        <Line>
       <info_body className='containerCaart'>
         {cartData ? (
           <div>
@@ -44,12 +46,17 @@ const Cart = () => {
             <p>Cliente: {cartData.cliente.nome}</p>
             <p>CPF: {cartData.cliente.cpf}</p>
             <p>Quantidade: {cartData.itensPedidos.quantidade}</p>
+            <div>
             <p id='Total'>Valor Total: {cartData.valorTotal}</p>
+
+            </div>
+ 
           </div>
         ) : (
           <p>Carregando dados do carrinho...</p>
         )}
       </info_body>
+        </Line>
     </ContentContainer>
   );
 };
