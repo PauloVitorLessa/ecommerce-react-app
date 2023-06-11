@@ -186,7 +186,7 @@ const SignUp = () => {
       numero: numero,
     };
 
-    ApiLocal.post("/enderecos", endereco)
+    Api.post("/enderecos", endereco)
       .then((res) => {
         const clienteDTO = {
           cpf: cpf,
@@ -201,7 +201,7 @@ const SignUp = () => {
           },
         };
 
-        ApiLocal.post("/clientes", clienteDTO)
+        Api.post("/clientes", clienteDTO)
           .then((res) => {
             console.log("entrou");
             setUser("");
