@@ -8,17 +8,13 @@ padding: 20px;
 margin: 20px 0;
 font-style: italic; */
 
-  position: absolute;
-  width: 196.47px;
-  height: 286px;
-  left: 259px;
-  top: 209px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  position: absolute;
-  width: 315px;
-  height: 286px;
-
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  min-height: 100vh;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Title = styled.h1`

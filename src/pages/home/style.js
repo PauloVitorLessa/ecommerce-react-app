@@ -4,6 +4,8 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   place-items: center;
+  min-height: 100vh;
+  margin-top: 50px;
 `;
 
 export const Card_container = styled.div`

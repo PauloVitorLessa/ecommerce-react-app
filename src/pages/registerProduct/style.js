@@ -5,6 +5,9 @@ export const ContentContainer = styled.div`
   flex-direction: column;
   place-items: center;
   gap: 20px;
+  min-height: 100vh;
+
+  padding-bottom: 70px;
 
   input[type="file"] {
     display: none;
