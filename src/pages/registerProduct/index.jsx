@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import cardBack from "../../assets/cardBack.jpg";
 import Modal from "react-bootstrap/Modal";
+import { getSession } from "../../services/sessionStorage";
 
 import { ContentContainer, Img_container, Card_container } from "./style.js";
-import { Api } from "../../services/api.js";
+import { Api, ApiLocal } from "../../services/api.js";
 function RegisterProduct() {
   const [smShow, setSmShow] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -57,7 +58,13 @@ function RegisterProduct() {
         formData.append("produtoDTO", JSON.stringify(produtoJson));
         formData.append("source", imageFile);
 
-        Api.post("/produtos", formData)
+        const token = getSession("user").accessToken;
+
+        Api.post("/produtos", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
           .then((res) => {
             console.log(res.data);
             setModalTitle("Sucesso");

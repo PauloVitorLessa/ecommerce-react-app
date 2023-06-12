@@ -1,56 +1,66 @@
 import { useState } from "react";
 import { Button, FormContainer, LoginFormWrapper, Label, Input } from "./style";
 import { Link } from "react-router-dom";
+import { Api, ApiLocal } from "../../services/api";
+import { setSession } from "../../services/sessionStorage";
 
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState();
 
-  // useEffect(() => {
-  //   async function fetchCategorias() {
-  //     Api.get("/categorias")
-  //       .then((result) => {
-  //         setCategorias(result.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.response);
-  //       });
-  //   }
-  //   fetchCategorias();
-  // }, []);
-
-  const handleUserNameChange = (e) => {
-    setUserName(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica de autenticação aqui (por exemplo, chamada a uma API)
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // Limpar os campos após a submissão
-    setEmail("");
+    const loginJson = {
+      username: userName,
+      password: password,
+    };
+    Api.post("/login", loginJson)
+      .then((result) => {
+        setSession("user", result.data);
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        if (!error?.response) {
+          setErrMsg("Sem Resposta do servidor.");
+        } else if (error.response.status === 400) {
+          setErrMsg("Senha ou usuário inválidos");
+          console.log(error.response);
+        } else {
+          setErrMsg("Erro no servidor");
+          console.log(error);
+        }
+      });
+
+    setUserName("");
     setPassword("");
   };
 
   return (
     <FormContainer>
       <LoginFormWrapper onSubmit={handleSubmit}>
+        <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+          {errMsg}
+        </p>
         <h2>Login</h2>
         <Label>
           Usuário:
-          <Input type="text" value={userName} onChange={handleUserNameChange} />
+          <Input
+            type="text"
+            value={userName}
+            onChange={(e) => {
+              setUserName(e.target.value), setErrMsg("");
+            }}
+          />
         </Label>
         <Label>
           Senha:
           <Input
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => {
+              setPassword(e.target.value), setErrMsg("");
+            }}
           />
         </Label>
         <Button type="submit">Login</Button>

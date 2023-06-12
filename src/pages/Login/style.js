@@ -9,6 +9,14 @@ export const FormContainer = styled.div`
   h2 {
     color: #570e8c;
   }
+
+  .errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 export const LoginFormWrapper = styled.form`

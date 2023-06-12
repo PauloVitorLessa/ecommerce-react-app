@@ -22,6 +22,8 @@ export const GlobalStyle = createGlobalStyle`
     min-height  : 100vh;
   }
 
+  
+
 a {
   font-weight: 500;
   color: #646cff;
