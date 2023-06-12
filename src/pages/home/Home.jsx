@@ -8,12 +8,11 @@ import {
 } from "./style.js";
 
 function Home() {
-  const [prodId, setProdId] = useState(1);
   const [prod, setProd] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      Api.get(`/produtos/${prodId}`)
+      Api.get("/produtos")
         .then((result) => {
           setProd(result.data);
         })
@@ -28,31 +27,27 @@ function Home() {
     }
 
     fetchData();
-  }, [prodId]);
+  }, []);
 
   return (
     <>
       <ContentContainer className="container-md">
-        <Card_container>
-          <Img_container>
-            <img
-              src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${prodId}/img`}
-              alt={prod.nome}
-            />
-          </Img_container>
-          <Card_body>
-            <h5 className="card-title">{prod.nome}</h5>
-            <p className="card-text">{prod.descricao}</p>
-            <h5 className="card-price">R$ {prod.valorUnitario}</h5>
-            <h5 className="card-id">#{prodId}</h5>
-          </Card_body>
-        </Card_container>
-        <button onClick={() => setProdId((prodId) => prodId + 1)}>
-          próximo
-        </button>
-        <button onClick={() => setProdId((prodId) => prodId - 1)}>
-          anterior
-        </button>
+        {prod.map((prod) => {
+          return (
+            <Card_container key={prod.idProduto}>
+              <Img_container>
+                <img
+                  src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${prod.idProduto}/img`}
+                  alt={prod.nome}
+                />
+              </Img_container>
+              <Card_body>
+                <h6 className="card-title">{prod.nome}</h6>
+              </Card_body>
+              <h6 className="card-price">R$ {prod.valorUnitario}</h6>
+            </Card_container>
+          );
+        })}
       </ContentContainer>
     </>
   );
