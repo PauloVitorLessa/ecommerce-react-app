@@ -9,6 +9,7 @@ import Payment from "./pages/payments/Payment.jsx";
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import UpdateProduct from "./pages/updateProduct/UpdateProduct.jsx";
+import DeleteProduct from "./pages/deleteProduct/DeleteProduct.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import PedidosClientes from "./pages/PedidosCliente/PedidosClientes.jsx";
 import Footer from "./common/components/footer/Footer.jsx";
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={PedidosClientes} path="/pedido" />
         <Route Component={Shop} path="/shop" />
         <Route Component={Payment} path="/payments" />
+        <Route Component={DeleteProduct} path="/delprod" />
       </Routes>
       <Footer />
     </BrowserRouter>

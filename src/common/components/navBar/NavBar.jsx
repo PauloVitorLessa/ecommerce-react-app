@@ -82,9 +82,9 @@ class NavBar extends React.Component {
                               </Link>
                             </li>
                             <li>
-                              <a className="dropdown-item" href="/#">
+                              <Link to={"/delprod"} className="dropdown-item">
                                 Remover Produtos
-                              </a>
+                              </Link>
                             </li>
                             <li className="dropdown-divider"></li>
                             <li>
