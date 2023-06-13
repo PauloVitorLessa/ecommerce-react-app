@@ -119,7 +119,7 @@ class NavBar extends React.Component {
                           </a>
                           <ul className="dropdown-menu">
                             <li>
-                              <a className="dropdown-item" href="/#">
+                              <a className="dropdown-item" href="/updateCliente">
                                 Atualizar Dados
                               </a>
                             </li>
