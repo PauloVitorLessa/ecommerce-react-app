@@ -5,6 +5,7 @@ import Cart from "./pages/carrinho/Cart.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
+import UpdateProduct from "./pages/updateProduct/UpdateProduct.jsx";
 import Footer from "./common/components/footer/Footer.jsx";
 import RegisterProduct from "./pages/registerProduct/index.jsx";
 import NavBar from "./common/components/navBar/NavBar.jsx";
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={Login} path="/login" />
         <Route Component={Register} path="/register" />
         <Route Component={SignUp} path="/signup" />
+        <Route Component={UpdateProduct} path="/updateProduct" />
       </Routes>
       <Footer />
     </BrowserRouter>

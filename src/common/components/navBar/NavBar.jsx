@@ -84,18 +84,17 @@ class NavBar extends React.Component {
                           </a>
                           <ul className="dropdown-menu">
                             <li>
-                              <Link
-                                to={"/regProd"}
-                                className="dropdown-item"
-                                href="/#"
-                              >
+                              <Link to={"/regProd"} className="dropdown-item">
                                 Cadastrar Produtos
                               </Link>
                             </li>
                             <li>
-                              <a className="dropdown-item" href="/#">
+                              <Link
+                                to={"/updateProduct"}
+                                className="dropdown-item"
+                              >
                                 Atualizar Produtos
-                              </a>
+                              </Link>
                             </li>
                             <li>
                               <a className="dropdown-item" href="/#">
@@ -172,62 +171,6 @@ class NavBar extends React.Component {
                     );
                   }
                 })()}
-
-                {/* {sessionStorage.getItem("user") == null ? (
-                  <Link to="/login">
-                    <P>Login</P>
-                  </Link>
-                ) : (
-
-                  
-                  <>
-                    <div className="nav-item dropdown conta">
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Conta
-                      </a>
-                      <ul className="dropdown-menu">
-                        <li>
-                          <a className="dropdown-item" href="/#">
-                            Action
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="/#">
-                            Another action
-                          </a>
-                        </li>
-                        <li className="dropdown-divider"></li>
-                        <li>
-                          <a
-                            className="dropdown-item"
-                            onClick={clearSession}
-                            href="/"
-                          >
-                            Logout
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <P>Bem vindo, {getSession("user").nome}</P>
-                  </>
-                )} */}
-                {/* <form className="d-flex" role="search">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                ></input>
-                <button className="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form> */}
               </div>
             </div>
           </nav>

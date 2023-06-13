@@ -51,9 +51,7 @@ function RegisterProduct() {
           descricao: descricao,
           qtdEstoque: quantidade,
           valorUnitario: preco,
-          categoria: {
-            idCategoria: categoria,
-          },
+          idCategoria: categoria,
         };
         formData.append("produtoDTO", JSON.stringify(produtoJson));
         formData.append("source", imageFile);
