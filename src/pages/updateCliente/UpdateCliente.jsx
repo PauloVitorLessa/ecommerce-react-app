@@ -38,6 +38,7 @@ function UpdateCliente() {
         .then((result) => {
           setUser(result.data);
           setUserEndereco(result.data.endereco);
+          console.log(result.data.endereco);
         })
         .catch((error) => {
           console.log(error.response);
@@ -86,7 +87,29 @@ function UpdateCliente() {
         numero: numero
       }
 
-      Api.put(`/clientes`, clienteJson)
+      const token = getSession("user").accessToken;
+
+      Api.put("/enderecos", enderecoJson, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }})
+        .then((res) => {
+          console.log(res.data);
+          setModalTitle("Sucesso");
+          setModalBody("O endereço foi atualizado");
+          setSmShow(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setModalTitle("Erro");
+          setModalBody("Erro ao registrar no banco de dados");
+          setSmShow(true);
+        });
+
+      Api.put(`/clientes`, clienteJson, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }})
         .then((res) => {
           console.log(res.data);
           setModalTitle("Sucesso");
@@ -99,20 +122,6 @@ function UpdateCliente() {
           setModalBody("Erro ao registrar no banco de dados");
           setSmShow(true);
         });
-
-      // Api.put("/enderecos", enderecoJson)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     setModalTitle("Sucesso");
-      //     setModalBody("O endereço foi atualizado");
-      //     setSmShow(true);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     setModalTitle("Erro");
-      //     setModalBody("Erro ao registrar no banco de dados");
-      //     setSmShow(true);
-      //   });
     }
   }
 
