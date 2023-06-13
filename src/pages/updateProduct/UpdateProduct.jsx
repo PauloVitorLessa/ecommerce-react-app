@@ -165,14 +165,23 @@ function UpdateProduct() {
           setModalTitle("Sucesso");
           setModalBody("O produto foi Atualizado");
           setSmShow(true);
-          setSucesso(true);
+          if (sucesso == true) {
+            setSucesso(false);
+          }
+          if (sucesso == false) {
+            setSucesso(true);
+          }
+          if (imageFile) {
+            //let image_as_base64 = URL.createObjectURL(file);
+            //setImagePreview(image_as_base64);
+            setProdSelectImg(URL.createObjectURL(imageFile));
+          }
         })
         .catch((err) => {
           console.log(err);
           setModalTitle("Erro");
           setModalBody("Erro ao registrar no banco de dados");
           setSmShow(true);
-          setSucesso(false);
         });
     }
   };
