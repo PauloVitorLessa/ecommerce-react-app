@@ -3,9 +3,14 @@ import ReactDOM from "react-dom/client";
 import Home from "./pages/home/Home.jsx";
 import Cart from "./pages/carrinho/Cart.jsx";
 import Login from "./pages/Login/Login.jsx";
+import Shop from "./pages/shop/Shop.jsx";
+import Payment from "./pages/payments/Payment.jsx";
+
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import UpdateProduct from "./pages/updateProduct/UpdateProduct.jsx";
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
+import PedidosClientes from "./pages/PedidosCliente/PedidosClientes.jsx";
 import Footer from "./common/components/footer/Footer.jsx";
 import RegisterProduct from "./pages/registerProduct/index.jsx";
 import NavBar from "./common/components/navBar/NavBar.jsx";
@@ -28,6 +33,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={Register} path="/register" />
         <Route Component={SignUp} path="/signup" />
         <Route Component={UpdateProduct} path="/updateProduct" />
+        <Route Component={AboutUs} path="/aboutus" />
+        <Route Component={PedidosClientes} path="/pedido" />
+        <Route Component={Shop} path="/shop" />
+        <Route Component={Payment} path="/payments" />
       </Routes>
       <Footer />
     </BrowserRouter>
