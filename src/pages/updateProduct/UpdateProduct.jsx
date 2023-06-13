@@ -172,8 +172,6 @@ function UpdateProduct() {
             setSucesso(true);
           }
           if (imageFile) {
-            //let image_as_base64 = URL.createObjectURL(file);
-            //setImagePreview(image_as_base64);
             setProdSelectImg(URL.createObjectURL(imageFile));
           }
         })

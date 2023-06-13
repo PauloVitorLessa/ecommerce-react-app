@@ -19,15 +19,6 @@ function DeleteProduct() {
   const [sucesso, setSucesso] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(cardBack);
-  const [categorias, setCategorias] = useState([]);
-  const [nome, setNome] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [quantidade, setQuantidade] = useState("");
-  const [preco, setPreco] = useState("");
-  const [Idcategoria, setIdCategoria] = useState("");
-  const [nomeCategoria, setNomeCategoria] = useState("");
   const [prod, setProd] = useState([]);
   const [prodSelectImg, setProdSelectImg] = useState(cardBack);
   const [prodSelect, setProdSelect] = useState({
