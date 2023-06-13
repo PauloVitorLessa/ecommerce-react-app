@@ -5,7 +5,8 @@ import Cart from "./pages/carrinho/Cart.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
-import AboutUs from "./pages/AboutUs/AboutUs.jsx"
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
+import PedidosClientes from './pages/PedidosCliente/PedidosClientes.jsx'
 import Footer from "./common/components/footer/Footer.jsx";
 import RegisterProduct from "./pages/registerProduct/index.jsx";
 import NavBar from "./common/components/navBar/NavBar.jsx";
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={Register} path="/register" />
         <Route Component={SignUp} path="/signup" />
         <Route Component={AboutUs} path="/aboutus" />
+        <Route Component={PedidosClientes} path="/pedido" />
       </Routes>
       <Footer />
     </BrowserRouter>
