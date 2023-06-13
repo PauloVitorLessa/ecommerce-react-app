@@ -34,28 +34,13 @@ class NavBar extends React.Component {
               >
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <Link to={"/"} className="nav-link active">
-                      Home
+                    <Link to={"/shop"} className="nav-link">
+                      Shop
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to={"/"} className="nav-link">
-                      link
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={"/"} className="nav-link active">
-                      link
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={"/"} className="nav-link active">
-                      link
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={"/"} className="nav-link active">
-                      link
+                    <Link to={"/aboutus"} className="nav-link active">
+                      Grupo
                     </Link>
                   </li>
                 </ul>
@@ -114,7 +99,7 @@ class NavBar extends React.Component {
                           </ul>
                         </div>
                         <P>
-                          Bem vindo{"(" + "a" + ")"}, {getSession("user").nome}
+                          Bem vindo{"(a)"}, {getSession("user").nome}
                         </P>
                       </>
                     );
@@ -139,7 +124,7 @@ class NavBar extends React.Component {
                               </a>
                             </li>
                             <li>
-                              <a className="dropdown-item" href="/#">
+                              <a className="dropdown-item" href="/pedido">
                                 Meus Pedidos
                               </a>
                             </li>
@@ -165,7 +150,7 @@ class NavBar extends React.Component {
                           </ul>
                         </div>
                         <P>
-                          Bem vindo{"(" + "a" + ")"}, {getSession("user").nome}
+                          Bem vindo{"(a)"}, {getSession("user").nome}
                         </P>
                       </>
                     );
