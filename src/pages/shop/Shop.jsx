@@ -50,13 +50,15 @@ const CartContainer = styled.div`
   position: fixed;
   top: 10px;
   right: 10px;
-  background-color: #a0accf;
+  background-color: #836191;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 4  px solid #ccc;
   width: 300px;
   max-height: 400px;
   overflow-y: auto;
   z-index: 1;
+  border-radius: 30px;
+
 `;
 
 const CartItem = styled.div`
@@ -90,7 +92,7 @@ const CartItemButton = styled.button`
   width: auto;
   margin-right: 5px;
   padding: 5px;
-  background-color: #ee1212;
+  background-color: white;
   border: none;
   cursor: pointer;
 `;
@@ -98,7 +100,7 @@ const CartItemButton = styled.button`
 const CheckoutButton = styled.button`
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #dd0b0b;
+  background-color:white;
   border: none;
   cursor: pointer;
 `;
@@ -113,6 +115,7 @@ const ToggleCartButton = styled.button`
   cursor: pointer;
 `;
 
+
 function Shop() {
   const [prodList, setProdList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
@@ -123,6 +126,18 @@ function Shop() {
     if (savedCartItems) {
       setCartItems(JSON.parse(savedCartItems));
     }
+
+    //checar se tem um user 
+    const handleCheckout = () => {
+      const user = sessionStorage.getItem("user");
+      if (!user) {
+        alert("Faça o login primeiro!");
+      } else {
+        console.log("Compra finalizada!");
+        history.push("/payments");
+      }
+    };
+
 
     async function fetchData() {
       try {
@@ -249,9 +264,20 @@ function Shop() {
           ))}
           <p>Total: R$ {calculateTotal()}</p>
           <Link to="/payments">
-            <CheckoutButton onClick={handleCheckout}>
-              Finalizar Compra
-            </CheckoutButton>
+
+
+            {sessionStorage.getItem("user") ? (
+              <Link to="/payments">
+                <CheckoutButton onClick={handleCheckout}>
+                  Finalizar Compra
+                </CheckoutButton>
+              </Link>
+            ) : (
+              <button onClick={() => alert("Faça o login primeiro!")}>
+                Finalizar Compra
+              </button>
+            )}
+
           </Link>
         </CartContainer>
       )}
