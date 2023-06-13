@@ -1,56 +1,112 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Api } from "../../services/api.js";
+import { motion } from "framer-motion";
+import dragaoBrancoCarrossel from '../../assets/dragaoBrancoCarrossel.jpg'
+import joeyCarrossel from '../../assets/joeyCarrossel.jpg'
+import yugiohCarrossel from '../../assets/yugiohCarrossel.jpg'
+import Loading from '../../assets/loading.png'
 import {
-  Card_body,
   ContentContainer,
-  Img_container,
-  Card_container,
+  CarrosselConteiner,
+  ProdutosConteiner,
+  CardContainer,
+  CardBody,
+  ImgContainer,
+  MaisProcurados,
 } from "./style.js";
 
-function Home() {
+const images = [yugiohCarrossel, joeyCarrossel, dragaoBrancoCarrossel]
+
+export function Home() {
+  const carousel = useRef();
+  const [width, setWidth] = useState(0)
+
+
+
+  useEffect(() => {
+    console.log(carousel.current?.scrollWidth, carousel.current?.offsetWidth)
+    setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth)
+  }, []);
+
   const [prod, setProd] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
-      Api.get("/produtos")
-        .then((result) => {
-          setProd(result.data);
-        })
-        .catch((error) => {
-          console.log(error.response);
-          setProd({
-            nome: "Não Encontrado",
-            descricao: "",
-            valorUnitario: 0.0,
-          });
-        });
+      setLoading(true)
+      const { data: result } = await Api.get("/produtos")
+      setProd(result);
+      setLoading(false)
     }
 
     fetchData();
   }, []);
 
+  const [promo, setPromo] = useState([]);
+
+  useEffect(() => {
+  }, []);
+
+
   return (
-    <>
-      <ContentContainer className="container-md">
-        {prod.map((prod) => {
-          return (
-            <Card_container key={prod.idProduto}>
-              <Img_container>
-                <img
-                  src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${prod.idProduto}/img`}
-                  alt={prod.nome}
-                />
-              </Img_container>
-              <Card_body>
-                <h6 className="card-title">{prod.nome}</h6>
-              </Card_body>
-              <h6 className="card-price">R$ {prod.valorUnitario}</h6>
-            </Card_container>
-          );
-        })}
+    <div className="container">
+      <ContentContainer>
+
+        <CarrosselConteiner>
+
+          <motion.div ref={carousel} className="carousel" whileTap={{ cursor: "grabbing" }}>
+            <motion.div
+              className="inner"
+              drag="x"
+              dragConstraints={{ right: 0, left: -width }}
+              initial={{ x: 300 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 0.9 }}
+            >
+
+              {images.map(image => (
+                <motion.div className="item" key={image}>
+                  <img src={image} alt={image} />
+                </motion.div>
+              ))}
+
+            </motion.div>
+          </motion.div>
+
+        </CarrosselConteiner>
+
+        <MaisProcurados>
+          <h3>Mais procurados</h3><br />
+
+          {loading ? <img className="loading" src={Loading} alt="loading"></img> :
+            <ProdutosConteiner>
+              {prod.filter((prod) => prod.valorUnitario < 31).map((produto) => {
+                return (
+                  <CardContainer key={produto.idProduto}>
+                    <ImgContainer>
+                      <a href="http://localhost:5173/shop">
+                        <img
+                          src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto.idProduto}/img`}
+                          alt={produto.nome}
+                        />
+                      </a>
+                    </ImgContainer>
+                    <CardBody>
+                      <h6 className="card-title">{produto.nome}</h6>
+                    </CardBody>
+                    <h6 className="card-price">R$ {produto.valorUnitario}</h6>
+                  </CardContainer>
+                );
+              })}
+
+            </ProdutosConteiner>
+          }
+        </MaisProcurados>
+
       </ContentContainer>
-    </>
-  );
+    </div>
+  )
+
 }
 
 export default Home;
