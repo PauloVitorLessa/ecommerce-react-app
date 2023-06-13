@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
+import Payment from "../payments/Payment.jsx";
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -52,6 +53,10 @@ const CartContainer = styled.div`
   background-color: #a0accf;
   padding: 10px;
   border: 1px solid #ccc;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1;
 `;
 
 const CartItem = styled.div`
@@ -98,9 +103,20 @@ const CheckoutButton = styled.button`
   cursor: pointer;
 `;
 
+const ToggleCartButton = styled.button`
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #a0accf;
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+`;
+
 function Shop() {
   const [prodList, setProdList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [cartVisible, setCartVisible] = useState(false);
 
   useEffect(() => {
     const savedCartItems = sessionStorage.getItem("cartItems");
@@ -127,12 +143,10 @@ function Shop() {
     sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  //funcao pra  ve se o tem o produto no carrinho
   const addToCart = (prod) => {
     const itemIndex = cartItems.findIndex(
       (item) => item.idProduto === prod.idProduto
     );
-
 
     if (itemIndex === -1) {
       setCartItems([...cartItems, { ...prod, quantity: 1 }]);
@@ -184,6 +198,10 @@ function Shop() {
     console.log("Compra finalizada!");
   };
 
+  const toggleCartVisibility = () => {
+    setCartVisible(!cartVisible);
+  };
+
   return (
     <>
       <Container>
@@ -205,7 +223,7 @@ function Shop() {
         </CardContainer>
       </Container>
 
-      {cartItems.length > 0 && (
+      {cartItems.length > 0 && cartVisible && (
         <CartContainer>
           <h3>Carrinho de Compras</h3>
           {cartItems.map((item) => (
@@ -230,11 +248,17 @@ function Shop() {
             </CartItem>
           ))}
           <p>Total: R$ {calculateTotal()}</p>
-          <CheckoutButton onClick={handleCheckout}>
-            Finalizar Compra
-          </CheckoutButton>
+          <Link to="/payments">
+            <CheckoutButton onClick={handleCheckout}>
+              Finalizar Compra
+            </CheckoutButton>
+          </Link>
         </CartContainer>
       )}
+
+      <ToggleCartButton onClick={toggleCartVisibility}>
+        {cartVisible ? "Esconder Carrinho" : "Mostrar Carrinho"}
+      </ToggleCartButton>
     </>
   );
 }
