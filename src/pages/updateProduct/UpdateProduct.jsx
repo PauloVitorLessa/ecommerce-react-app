@@ -15,6 +15,7 @@ import {
 import { Api, ApiLocal } from "../../services/api.js";
 function UpdateProduct() {
   const [smShow, setSmShow] = useState(false);
+  const [sucesso, setSucesso] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -36,6 +37,34 @@ function UpdateProduct() {
     idCategoria: "",
     nomeCategoria: "",
   });
+
+  const base64ToArrayBuffer = (base64) => {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+      var ascii = binaryString.charCodeAt(i);
+      bytes[i] = ascii;
+    }
+    return bytes;
+  };
+
+  const handleFileDataType = (ext) => {
+    switch (ext) {
+      case "pdf":
+        return "application/pdf";
+      case "jpg":
+        return "image/jpeg";
+      case "jpeg":
+        return "image/jpeg";
+      case "png":
+        return "image/png";
+      case "tiff":
+        return "image/tiff";
+      case "docx":
+        return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    }
+  };
 
   useEffect(() => {
     async function fetchCategorias() {
@@ -68,7 +97,6 @@ function UpdateProduct() {
       Api.get("/produtos")
         .then((result) => {
           setProd(result.data);
-          console.log(result.data);
         })
         .catch((error) => {
           console.log(error.response);
@@ -81,7 +109,7 @@ function UpdateProduct() {
     }
 
     fetchProdutos();
-  }, []);
+  }, [sucesso]);
 
   const handleImagePreview = (e) => {
     let image_as_base64 = URL.createObjectURL(e.target.files[0]);
@@ -112,11 +140,17 @@ function UpdateProduct() {
         nomeCategoria: nomeCategoria,
       };
       formData.append("produtoDTO", JSON.stringify(produtoJson));
+      console.log(produtoJson);
 
       if (imageFile) {
         formData.append("source", imageFile);
       } else {
-        formData.append("source", prodSelect.imagem);
+        let file = new File(
+          [base64ToArrayBuffer(prodSelect.imagem)],
+          `${prodSelect.nome}`,
+          { type: handleFileDataType("jpeg"), lastModified: new Date() }
+        );
+        formData.append("source", file);
       }
 
       const token = getSession("user").accessToken;
@@ -131,12 +165,14 @@ function UpdateProduct() {
           setModalTitle("Sucesso");
           setModalBody("O produto foi Atualizado");
           setSmShow(true);
+          setSucesso(true);
         })
         .catch((err) => {
           console.log(err);
           setModalTitle("Erro");
           setModalBody("Erro ao registrar no banco de dados");
           setSmShow(true);
+          setSucesso(false);
         });
     }
   };
@@ -150,7 +186,6 @@ function UpdateProduct() {
             <p>Selecione a Carta</p>
             <ul>
               {prod.map((prod) => {
-                //console.log(prod.categoria);
                 return (
                   <li
                     value={prod}
