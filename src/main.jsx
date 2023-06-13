@@ -4,6 +4,7 @@ import Home from "./pages/home/Home.jsx";
 import Cart from "./pages/carrinho/Cart.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Shop from "./pages/shop/Shop.jsx"
+import Payments from "./pages/payments/Payments.jsx"
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx"
@@ -30,6 +31,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={SignUp} path="/signup" />
         <Route Component={AboutUs} path="/aboutus" />
         <Route Component={Shop} path="/shop" />
+        <Route Component={Payments} path="/payments" />
+
 
       </Routes>
       <Footer />

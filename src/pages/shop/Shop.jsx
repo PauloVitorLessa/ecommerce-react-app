@@ -103,6 +103,11 @@ function Shop() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
+    const savedCartItems = sessionStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCartItems(JSON.parse(savedCartItems));
+    }
+
     async function fetchData() {
       try {
         const response = await axios.get(
@@ -118,10 +123,16 @@ function Shop() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  //funcao pra  ve se o tem o produto no carrinho
   const addToCart = (prod) => {
     const itemIndex = cartItems.findIndex(
       (item) => item.idProduto === prod.idProduto
     );
+
 
     if (itemIndex === -1) {
       setCartItems([...cartItems, { ...prod, quantity: 1 }]);
@@ -170,7 +181,6 @@ function Shop() {
   };
 
   const handleCheckout = () => {
-    // Lógica para finalizar a compra
     console.log("Compra finalizada!");
   };
 
