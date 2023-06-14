@@ -12,7 +12,7 @@ class NavBar extends React.Component {
     return (
       <>
         <Container>
-          <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-md">
               <Link to={"/"} className="navbar-brand">
                 E-commerce
@@ -39,7 +39,7 @@ class NavBar extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to={"/aboutus"} className="nav-link active">
+                    <Link to={"/aboutus"} className="nav-link">
                       Grupo
                     </Link>
                   </li>
@@ -49,7 +49,10 @@ class NavBar extends React.Component {
                   //Renderiza se não tiver usuário logado
                   if (sessionStorage.getItem("user") == null) {
                     return (
-                      <Link to="/login">
+                      <Link
+                        to="/login"
+                        className="nav-link nav-item navbar-nav"
+                      >
                         <P>Login</P>
                       </Link>
                     );
@@ -59,7 +62,7 @@ class NavBar extends React.Component {
                       <>
                         <div className="nav-item dropdown conta">
                           <a
-                            className="nav-link dropdown-toggle"
+                            className="nav-link dropdown-toggle nav-link nav-item navbar-nav"
                             href="#"
                             role="button"
                             data-bs-toggle="dropdown"
@@ -112,9 +115,9 @@ class NavBar extends React.Component {
                             </li>
                           </ul>
                         </div>
-                        <P>
+                        <p className="nav-link nav-item navbar-nav">
                           Bem vindo{"(a)"}, {getSession("user").nome}
-                        </P>
+                        </p>
                       </>
                     );
                     //Renderiza se o usuário não for administrador
