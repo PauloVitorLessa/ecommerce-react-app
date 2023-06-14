@@ -94,7 +94,7 @@ function Payment() {
           produtos.forEach((prod, index) => {
             let itemPedidoJson;
 
-            if (index + 1 == produtos.length) {
+            if (index + 1 === produtos.length) {
               itemPedidoJson = {
                 quantidade: prod.quantity,
                 percentualDesconto: 0,
