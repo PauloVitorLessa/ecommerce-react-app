@@ -129,7 +129,7 @@ function Shop() {
 
   return (
     <>
-      <Container>
+      <Container className="container-md">
         <LoadingContainer>
           {loading ? (
             <img className="loading" src={Loading} alt="loading"></img>
