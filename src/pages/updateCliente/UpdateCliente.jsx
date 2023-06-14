@@ -3,7 +3,7 @@ import cardBack from "../../assets/cardBack.jpg";
 import Modal from "react-bootstrap/Modal";
 import { getSession } from "../../services/sessionStorage";
 
-import { Api } from "../../services/api.js";
+import { Api, ApiLocal } from "../../services/api.js";
 
 function UpdateCliente() {
   //Armazenar as infos que serão necessárias
@@ -42,11 +42,7 @@ function UpdateCliente() {
           setNome(result.data.nome);
           setEmail(result.data.email);
           setDataNascimento(
-            result.data.dataNascimento
-              .slice(0, 10)
-              .split("-")
-              .reverse()
-              .join("/")
+            result.data.dataString.slice(0, 10).split("-").reverse().join("/")
           );
           setCpf(result.data.cpf);
           setTelefone(result.data.telefone);
