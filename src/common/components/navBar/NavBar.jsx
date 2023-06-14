@@ -69,6 +69,11 @@ class NavBar extends React.Component {
                           </a>
                           <ul className="dropdown-menu">
                             <li>
+                              <Link to={"/clientes"} className="dropdown-item">
+                                Clientes Cadastrados
+                              </Link>
+                            </li>
+                            <li>
                               <Link
                                 to={"/updateCliente"}
                                 className="dropdown-item"
