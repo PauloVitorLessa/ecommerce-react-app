@@ -29,7 +29,7 @@ export function Home() {
   }, []);
 
   const [prod, setProd] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,10 +42,6 @@ export function Home() {
     fetchData();
   }, []);
 
-  const [promo, setPromo] = useState([]);
-
-  useEffect(() => {
-  }, []);
 
 
   return (

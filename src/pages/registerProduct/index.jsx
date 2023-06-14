@@ -3,7 +3,7 @@ import cardBack from "../../assets/cardBack.jpg";
 import Modal from "react-bootstrap/Modal";
 import { getSession } from "../../services/sessionStorage";
 
-import { ContentContainer, Img_container, Card_container } from "./style.js";
+import { ContentContainer, Img_container, Card_container, } from "./style.js";
 import { Api, ApiLocal } from "../../services/api.js";
 function RegisterProduct() {
   const [smShow, setSmShow] = useState(false);
