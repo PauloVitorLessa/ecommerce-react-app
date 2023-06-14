@@ -59,7 +59,8 @@ function Payment() {
     <div className="Payment">
       {paid ? (
         <div>
-          <h1>A tropa faz dinheiro com site</h1>
+          <h1>compra realizada</h1>
+        
         </div>
       ) : (
         <>
