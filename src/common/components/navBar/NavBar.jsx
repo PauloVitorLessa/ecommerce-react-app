@@ -148,15 +148,6 @@ class NavBar extends React.Component {
                                 Meus Pedidos
                               </a>
                             </li>
-                            <li>
-                              <Link
-                                to={"/Cart"}
-                                className="dropdown-item"
-                                href="/#"
-                              >
-                                Meu Carrinho
-                              </Link>
-                            </li>
                             <li className="dropdown-divider"></li>
                             <li>
                               <a

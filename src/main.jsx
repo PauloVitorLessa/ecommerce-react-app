@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/home/Home.jsx";
-import Cart from "./pages/carrinho/Cart.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Shop from "./pages/shop/Shop.jsx";
 import Payment from "./pages/payments/Payment.jsx";
@@ -30,7 +29,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route Component={Home} path="/" />
         <Route Component={RegisterProduct} path="/regProd" />
-        <Route Component={Cart} path="/cart" />
         <Route Component={Login} path="/login" />
         <Route Component={Register} path="/register" />
         <Route Component={SignUp} path="/signup" />
