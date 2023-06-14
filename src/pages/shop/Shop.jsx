@@ -28,7 +28,7 @@ function Shop() {
   const [loading, setLoading] = useState(false);
   const [filtroMaior, setFiltroMaior] = useState(1000);
   const [filtroMenor, setFiltroMenor] = useState(0);
-  const [cartVisible, setCartVisible] = useState(false);
+  const [cartVisible, setCartVisible] = useState(true);
 
   useEffect(() => {
     const savedCartItems = sessionStorage.getItem("cartItems");
