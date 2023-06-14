@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import cardBack from "../../assets/cardBack.jpg";
 import Modal from "react-bootstrap/Modal";
 import { getSession } from "../../services/sessionStorage";
+import { ContentContainer } from "./style";
 
 import { Api, ApiLocal } from "../../services/api.js";
 
@@ -126,74 +127,84 @@ function UpdateCliente() {
 
   return (
     <>
-      <div className="container">
-        <h2>Atualizar Cliente</h2>
-        <form onSubmit={(e) => handleSubmitUpdate(e)}>
-          <label>Nome</label>
-          <input
-            required
-            value={nome}
-            type="text"
-            onChange={(e) => setNome(e.target.value)}
-          />
-          <label>Data Nascimento</label>
-          <input
-            required
-            value={dataNascimento}
-            type="text"
-            onChange={(e) => setDataNascimento(e.target.value)}
-          />
-          <label>Cpf</label>
-          <input
-            required
-            value={cpf}
-            type="numero"
-            onChange={(e) => setCpf(e.target.value)}
-          />
-          <label>Telefone</label>
-          <input
-            required
-            value={telefone}
-            type="tel"
-            onChange={(e) => setTelefone(e.target.value)}
-          />
-          <label>Cep</label>
-          <input
-            required
-            value={cep}
-            type="numero"
-            onChange={(e) => setCep(e.target.value)}
-          />
-          <label>Numero</label>
-          <input
-            required
-            value={numero}
-            type="numero"
-            onChange={(e) => setNumero(e.target.value)}
-          />
-          <label>Nova Senha</label>
-          <input
-            value={password}
-            type="text"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Atualizar</button>
-        </form>
-      </div>
-      <Modal
-        size="sm"
-        show={smShow}
-        onHide={() => setSmShow(false)}
-        aria-labelledby="example-modal-sizes-title-sm"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-            {modalTitle}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{modalBody}</Modal.Body>
-      </Modal>
+      <ContentContainer>
+        <div className="container">
+          <h2>Atualizar Cliente</h2>
+          <form onSubmit={(e) => handleSubmitUpdate(e)}>
+            <label></label>
+            Nome <br />
+            <input
+              required
+              value={nome}
+              type="text"
+              onChange={(e) => setNome(e.target.value)}
+            /><br />
+            <label></label>
+            Data Nascimento <br />
+            <input
+              required
+              value={dataNascimento}
+              type="text"
+              onChange={(e) => setDataNascimento(e.target.value)}
+            /><br />
+            <label></label>
+            Cpf <br />
+            <input
+              required
+              value={cpf}
+              type="numero"
+              onChange={(e) => setCpf(e.target.value)}
+            /><br />
+            <label></label>
+            Telefone <br />
+            <input
+              required
+              value={telefone}
+              type="tel"
+              onChange={(e) => setTelefone(e.target.value)}
+            /><br />
+            <label></label>
+            Cep <br />
+            <input
+              required
+              value={cep}
+              type="numero"
+              onChange={(e) => setCep(e.target.value)}
+            /> <br />
+            <label></label>
+            Numero <br />
+            <input
+              required
+              value={numero}
+              type="numero"
+              onChange={(e) => setNumero(e.target.value)}
+            /> <br />
+            <label></label>
+            Nova Senha <br />
+            <input
+              value={password}
+              type="text"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            /> <br />
+            <button type="submit">Atualizar</button>
+          </form>
+        </div>
+        <Modal
+          size="sm"
+          show={smShow}
+          onHide={() => setSmShow(false)}
+          aria-labelledby="example-modal-sizes-title-sm"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-sm">
+              {modalTitle}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{modalBody}</Modal.Body>
+        </Modal>
+      </ContentContainer>
+
     </>
   );
 }

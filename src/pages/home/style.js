@@ -50,8 +50,12 @@ export const CarrosselConteiner = styled.div`
 `;
 
 export const ProdutosConteiner = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
+display: flex;
+  justify-content: center;
+ 
+  flex-direction: row;
+  flex-wrap: wrap;
+  
   gap: 25px;
 `;
 export const CardContainer = styled.div`
