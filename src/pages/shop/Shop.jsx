@@ -28,7 +28,7 @@ function Shop() {
   const [loading, setLoading] = useState(false);
   const [filtroMaior, setFiltroMaior] = useState(1000);
   const [filtroMenor, setFiltroMenor] = useState(0);
-  const [cartVisible, setCartVisible] = useState(false);
+  const [cartVisible, setCartVisible] = useState(true);
 
   useEffect(() => {
     const savedCartItems = sessionStorage.getItem("cartItems");
@@ -129,7 +129,7 @@ function Shop() {
 
   return (
     <>
-      <Container>
+      <Container className="container-md">
         <LoadingContainer>
           {loading ? (
             <img className="loading" src={Loading} alt="loading"></img>

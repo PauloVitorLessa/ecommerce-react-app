@@ -12,10 +12,12 @@ const girando = keyframes`
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+
 `;
 
 export const LoadingContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   text-align: center;
   flex-direction: column;
@@ -41,8 +43,12 @@ export const LoadingContainer = styled.div`
 `;
 
 export const ProdutosConteiner = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  display: flex;
+  justify-content: center;
+ 
+  flex-direction: row;
+  flex-wrap: wrap;
+  
   gap: 25px;
 
   .filtro{
@@ -84,6 +90,7 @@ export const CardContainer = styled.div`
   img {
     width: 200px;
     border-radius: 5px;
+    
   }
 
   .cardBody{
@@ -182,7 +189,9 @@ export const CartContainer = styled.div`
   padding: 10px;
   border: 2px solid #282d32;
   border-radius: 13px;
-
+  height: 500px;
+  overflow-y: auto;  
+  
   h4{
     text-align: center;
     border-radius: 13px;
@@ -197,6 +206,7 @@ export const CartItem = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  
 `;
 
 export const CartItemImage = styled.img`

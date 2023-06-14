@@ -152,7 +152,7 @@ function RegisterProduct() {
               onChange={(e) => setPreco((preco) => e.target.value)}
             />
           </div>
-          <button type="submit">Registrar</button>
+          <button className="submit" type="submit">Registrar</button>
         </form>
         {/* <button onClick={() => setProdId((prodId) => prodId - 1)}>
           anterior
