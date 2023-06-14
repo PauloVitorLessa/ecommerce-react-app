@@ -48,18 +48,103 @@ function Payment() {
     });
   };
 
-  const onApprove = (data, actions) => {
-    return actions.order.capture().then((details) => {
-      setPaid(true);
-      console.log(details);
-    });
-  };
+  // const onApprove = (data, actions) => {
+  //   return actions.order.capture().then((details) => {
+  //     setPaid(true);
+  //     console.log(details);
+  //   });
+  // };
 
+//------------------------------------------------------------------
+
+
+const getProductsFromSession = (session) => {
+  const products = [];
+
+  for (let i = 0; i < session.length; i++) {
+    const product = session[i];
+    products.push({
+      id: product.idProduto,
+      nome: product.nome,
+      descricao: product.descricao,
+      categoria: product.nomeCategoria,
+      quantidade: product.quantity,
+      valorUnitario: product.valorUnitario
+    });
+  }
+  return products;
+  console.log(products)
+};
+
+
+
+//============================================================
+
+const onApprove = (data, actions) => {
+return actions.order.capture().then((details) => {
+  setPaid(true);
+  console.log(details);
+
+  const savedCartItems = sessionStorage.getItem("cartItems");
+  if (savedCartItems) {
+    const cartItems = JSON.parse(savedCartItems);
+
+    const pedidos = cartItems.map((item) => {
+      const pedido = {
+        // Dados do pedido a serem enviados para a API 
+      };
+
+      return axios
+        .post("https://api-restful-trabalho-final-production.up.railway.app/api/pedidos", pedido)
+        .then((response) => response.data)
+        .catch((error) => {
+          console.error("Erro ao enviar solicitação para a API 'pedidos':", error);
+        });
+    });
+
+    Promise.all(pedidos)
+      .then((orderedItems) => {
+        // Extrair os IDs dos pedidos criados
+        const pedidoIDs = orderedItems.map((item) => item.id);
+
+        const itensPedidos = cartItems.map((item, index) => {
+          const itensPedido = {
+            // Dados dos itens de pedido a serem enviados para a API "itensPedidos"
+            pedidoId: pedidoIDs[index],
+            // Outros dados dos itens de pedido
+          };
+
+          return axios
+            .post("https://api-restful-trabalho-final-production.up.railway.app/api/itensPedidos", itensPedido)
+            .then((response) => response.data)
+            .catch((error) => {
+              console.error("Erro ao enviar solicitação para a API 'itensPedidos':", error);
+            });
+        });
+
+        return Promise.all(itensPedidos);
+      })
+      .then((orderedItensPedidos) => {
+        console.log("Pedidos:", orderedItems);
+        console.log("Itens de Pedidos:", orderedItensPedidos);
+      })
+      .catch((error) => {
+        console.error("Erro ao enviar solicitações para a API:", error);
+      });
+  }
+});
+};
+
+
+
+
+//--------------------------------------------------------------
   return (
     <div className="Payment">
       {paid ? (
         <div>
-          <h1>A tropa faz dinheiro com site</h1>
+          <h1>compra realizada</h1>
+       
         </div>
       ) : (
         <>

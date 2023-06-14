@@ -12,7 +12,7 @@ class NavBar extends React.Component {
     return (
       <>
         <Container>
-          <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-md">
               <Link to={"/"} className="navbar-brand">
                 E-commerce
@@ -39,7 +39,7 @@ class NavBar extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to={"/aboutus"} className="nav-link active">
+                    <Link to={"/aboutus"} className="nav-link">
                       Grupo
                     </Link>
                   </li>
@@ -49,7 +49,10 @@ class NavBar extends React.Component {
                   //Renderiza se não tiver usuário logado
                   if (sessionStorage.getItem("user") == null) {
                     return (
-                      <Link to="/login">
+                      <Link
+                        to="/login"
+                        className="nav-link nav-item navbar-nav"
+                      >
                         <P>Login</P>
                       </Link>
                     );
@@ -68,6 +71,20 @@ class NavBar extends React.Component {
                             Conta
                           </a>
                           <ul className="dropdown-menu">
+                            <li>
+                              <Link to={"/clientes"} className="dropdown-item">
+                                Clientes Cadastrados
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to={"/updateCliente"}
+                                className="dropdown-item"
+                                href="/updateCliente"
+                              >
+                                Atualizar Dados
+                              </Link>
+                            </li>
                             <li>
                               <Link to={"/regProd"} className="dropdown-item">
                                 Cadastrar Produtos
@@ -119,7 +136,10 @@ class NavBar extends React.Component {
                           </a>
                           <ul className="dropdown-menu">
                             <li>
-                              <a className="dropdown-item" href="/updateCliente">
+                              <a
+                                className="dropdown-item"
+                                href="/updateCliente"
+                              >
                                 Atualizar Dados
                               </a>
                             </li>

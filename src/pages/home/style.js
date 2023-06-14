@@ -7,7 +7,7 @@ const girando = keyframes`
  100%{
   transform: rotate(360deg);
  }
-`
+`;
 
 export const ContentContainer = styled.div`
   display: flex;
@@ -24,31 +24,30 @@ export const CarrosselConteiner = styled.div`
   max-width: 1366px;
   border-radius: 13px;
   padding: 0.8%;
-  box-shadow:0px 0px 20px 5px #601860;
+  box-shadow: 0px 0px 20px 5px #601860;
 
-  .inner{
+  .inner {
     display: flex;
   }
-  
-  .item{
+
+  .item {
     min-height: 435px;
     min-width: 700px;
     padding: 13px;
   }
 
-  .item img{
+  .item img {
     width: 100%;
     height: 100%;
     border-radius: 13px;
     pointer-events: none;
   }
 
-  .carousel{
+  .carousel {
     cursor: grab;
     overflow: hidden;
   }
 `;
-
 
 export const ProdutosConteiner = styled.div`
 display: flex;
@@ -58,7 +57,6 @@ display: flex;
   flex-wrap: wrap;
   
   gap: 25px;
-
 `;
 export const CardContainer = styled.div`
   width: 202px;
@@ -66,12 +64,11 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #601860;
-  border:2px solid #601860;
+  border: 2px solid #601860;
   border-radius: 2%;
   position: relative;
   overflow: hidden;
   transition: 0.4s;
-
 
   color: white;
 
@@ -81,14 +78,13 @@ export const CardContainer = styled.div`
     right: 10px;
   }
 
- :hover{
-  transform: scale(1.1);
-  background-color: #ad7dd1;
-  border: #ad7dd1;
-  color: #282d32;
-  font-weight: bold;
- }
-
+  :hover {
+    transform: scale(1.1);
+    background-color: #ad7dd1;
+    border: #ad7dd1;
+    color: #282d32;
+    font-weight: bold;
+  }
 `;
 
 export const CardBody = styled.div`
@@ -126,10 +122,10 @@ export const MaisProcurados = styled.div`
   border-radius: 13px;
   margin: 30px;
   padding: 15px;
-  box-shadow:0px 0px 20px 5px #601860;
+  box-shadow: 0px 0px 20px 5px #601860;
   color: white;
 
-  .loading{
+  .loading {
     display: flex;
     align-items: center;
     text-align: center;
@@ -141,4 +137,3 @@ export const MaisProcurados = styled.div`
     animation-iteration-count: infinite;
   }
 `;
-

@@ -4,10 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import { getSession } from "../../services/sessionStorage";
 import { ContentContainer } from "./style";
 
-import { Api } from "../../services/api.js";
+import { Api, ApiLocal } from "../../services/api.js";
 
 function UpdateCliente() {
-  
   //Armazenar as infos que serão necessárias
   const [user, setUser] = useState([]);
   const [userEndereco, setUserEndereco] = useState([]);
@@ -26,6 +25,7 @@ function UpdateCliente() {
   const [telefone, setTelefone] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
   //Infos endereço
   const [idEndereco, setIdEndereco] = useState("");
@@ -39,7 +39,22 @@ function UpdateCliente() {
         .then((result) => {
           setUser(result.data);
           setUserEndereco(result.data.endereco);
-          console.log(result.data.endereco);
+          setIdCliente(result.data.idCliente);
+          setNome(result.data.nome);
+          setEmail(result.data.email);
+          setDataNascimento(
+            result.data.dataString.slice(0, 10).split("-").reverse().join("/")
+          );
+          setCpf(result.data.cpf);
+          setTelefone(result.data.telefone);
+          setUsername(result.data.username);
+          setCep(result.data.endereco.cep);
+          setNumero(result.data.endereco.numero);
+          if (result.data.roles[0].name == "ROLE_ADMIN") {
+            setRole("admin");
+          } else {
+            setRole("user");
+          }
         })
         .catch((error) => {
           console.log(error.response);
@@ -48,83 +63,67 @@ function UpdateCliente() {
     fetchCliente();
   }, []);
 
-  useEffect(() => {
-    function setImputs() {
-      setIdCliente(user.idCliente);
-      setNome(user.nome);
-      setEmail(user.email);
-      setDataNascimento(user.dataNascimento);
-      setCpf(user.cpf);
-      setTelefone(user.telefone);
-      setUsername(user.username)
-      setPassword(user.password)
-      setCep(userEndereco.cep);
-      setNumero(userEndereco.numero);
-      setIdEndereco(userEndereco.idEndereco);
-    }
-
-    setImputs()
-  }, [user]);
-
-
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
 
-    if(nome !== "" && email !== "" && dataNascimento !== "" && cpf !== "" && telefone !== "" && cep !== "" && numero !== ""){
-      let clienteJson = {
-        idCliente: idCliente,
-        nome: nome,
-        email: email,
-        dataNascimento: dataNascimento,
-        cpf: cpf,
-        telefone: telefone,
-        username: username,
-        password: password
-      }
-
+    if (
+      nome !== "" &&
+      email !== "" &&
+      dataNascimento !== "" &&
+      cpf !== "" &&
+      telefone !== "" &&
+      cep !== "" &&
+      numero !== ""
+    ) {
       let enderecoJson = {
-        idEndereco: idEndereco,
         cep: cep,
-        numero: numero
-      }
+        numero: numero,
+      };
 
-      const token = getSession("user").accessToken;
-
-      Api.put("/enderecos", enderecoJson, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }})
+      Api.post("/enderecos", enderecoJson)
         .then((res) => {
-          console.log(res.data);
+          let idNovoEndereco = res.data.idEndereco;
+
+          let clienteJson = {
+            idCliente: idCliente,
+            nome: nome,
+            email: email,
+            dataString: dataNascimento,
+            cpf: cpf,
+            telefone: telefone,
+            username: username,
+            password: password,
+            strRoles: [role],
+            endereco: {
+              idEndereco: idNovoEndereco,
+            },
+          };
+          Api.put("/clientes", clienteJson)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log("erro na req clientes");
+              console.log(clienteJson);
+              console.log(err);
+              setModalTitle("Erro");
+              setModalBody("Erro ao registrar no banco de dados");
+              setSmShow(true);
+            });
+
           setModalTitle("Sucesso");
-          setModalBody("O endereço foi atualizado");
+          setModalBody("Dados Atualizados");
           setSmShow(true);
         })
         .catch((err) => {
+          console.log("erro na req endereco");
           console.log(err);
           setModalTitle("Erro");
-          setModalBody("Erro ao registrar no banco de dados");
-          setSmShow(true);
-        });
-
-      Api.put(`/clientes`, clienteJson, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }})
-        .then((res) => {
-          console.log(res.data);
-          setModalTitle("Sucesso");
-          setModalBody("O cliente foi atualizado");
-          setSmShow(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setModalTitle("Erro");
-          setModalBody("Erro ao registrar no banco de dados");
+          setModalBody("Cep Inválido");
           setSmShow(true);
         });
     }
-  }
+  };
 
   return (
     <>

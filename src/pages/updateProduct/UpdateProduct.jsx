@@ -286,7 +286,7 @@ function UpdateProduct() {
                 <div key={element.idCategoria}>
                   <input
                     type="radio"
-                    value={Idcategoria}
+                    value={element.idCategoria}
                     checked={Idcategoria == element.idCategoria}
                     name="categoria"
                     required

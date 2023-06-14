@@ -5,7 +5,7 @@ import Cart from "./pages/carrinho/Cart.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Shop from "./pages/shop/Shop.jsx";
 import Payment from "./pages/payments/Payment.jsx";
-
+import AllClientes from "./pages/AllClientes/AllClientes.jsx";
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import UpdateProduct from "./pages/updateProduct/UpdateProduct.jsx";
@@ -41,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={Payment} path="/payments" />
         <Route Component={UpdateCliente} path="/updateCliente" />
         <Route Component={DeleteProduct} path="/delprod" />
+        <Route Component={AllClientes} path="/clientes" />
       </Routes>
       <Footer />
     </BrowserRouter>
