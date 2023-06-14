@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import Modal from "react-bootstrap/Modal";
 import { Api } from "../../services/api";
+import {
+  ContentContainer,
+} from './Payments.js';
 
 function Payment() {
   const [paid, setPaid] = useState(false);
@@ -151,6 +154,7 @@ function Payment() {
   //--------------------------------------------------------------
   return (
     <>
+    <ContentContainer>
       <div className="Payment">
         {paid ? (
           <div>
@@ -159,7 +163,7 @@ function Payment() {
         ) : (
           <>
             <h1>
-              {product.description} por R${product.price}
+              {product.description}R$ {product.price}
             </h1>
             <PayPalScriptProvider options={paypalOptions}>
               <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
@@ -180,6 +184,7 @@ function Payment() {
         </Modal.Header>
         <Modal.Body>{modalBody}</Modal.Body>
       </Modal>
+    </ContentContainer>
     </>
   );
 }
