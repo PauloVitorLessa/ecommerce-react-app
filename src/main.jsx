@@ -9,10 +9,12 @@ import Payment from "./pages/payments/Payment.jsx";
 import Register from "./pages/Cadastro/Register.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import UpdateProduct from "./pages/updateProduct/UpdateProduct.jsx";
+import DeleteProduct from "./pages/deleteProduct/DeleteProduct.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import PedidosClientes from "./pages/PedidosCliente/PedidosClientes.jsx";
 import Footer from "./common/components/footer/Footer.jsx";
 import RegisterProduct from "./pages/registerProduct/index.jsx";
+import UpdateCliente from "./pages/updateCliente/UpdateCliente.jsx";
 import NavBar from "./common/components/navBar/NavBar.jsx";
 import { GlobalStyle } from "./common/style/GlobalStyle.js";
 import "jquery";
@@ -37,6 +39,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route Component={PedidosClientes} path="/pedido" />
         <Route Component={Shop} path="/shop" />
         <Route Component={Payment} path="/payments" />
+        <Route Component={UpdateCliente} path="/updateCliente" />
+        <Route Component={DeleteProduct} path="/delprod" />
       </Routes>
       <Footer />
     </BrowserRouter>

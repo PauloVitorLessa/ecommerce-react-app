@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import Loading from '../../assets/loading.png'
 import carrinho from '../../assets/carrinho-de-compras.png'
 import { Link } from "react-router-dom";
@@ -20,10 +21,21 @@ import {
   ToggleCartButton,
 } from "./Shop.js";
 
+const ToggleCartButton = styled.button`
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #a0accf;
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+`;
+
 
 function Shop() {
   const [prodList, setProdList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [filtroMaior, setFiltroMaior] = useState(1000)
   const [filtroMenor, setFiltroMenor] = useState(0)
@@ -126,9 +138,11 @@ function Shop() {
   const toggleCartVisibility = () => {
     setCartVisible(!cartVisible);
   };
+
   return (
     <>
       <Container>
+
 
         <LoadingContainer>
           {loading ? <img className="loading" src={Loading} alt="loading"></img> :
@@ -211,6 +225,7 @@ function Shop() {
         <ToggleCartButton onClick={toggleCartVisibility}>
           {cartVisible ? "Esconder Carrinho" : "Mostrar Carrinho"}
         </ToggleCartButton>
+
     </>
   );
 }

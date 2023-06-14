@@ -4,9 +4,29 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 function Payment() {
   const [paid, setPaid] = useState(false);
 
+
+  const calculateTotal = () => {
+    let total = 0;
+  
+    const savedCartItems = sessionStorage.getItem("cartItems");
+    if (savedCartItems) {
+      const cartItems = JSON.parse(savedCartItems);
+  
+      if (cartItems.length > 0) {
+        for (const item of cartItems) {
+          const quantity = item.quantity || 1; //se nao tiver quantidade fica 1 
+          total += item.valorUnitario * quantity;
+        }
+      }
+    }
+  
+    return total;
+  };
+  
+
   const product = {
-    price: 0.7,
-    description: "teste",
+    price: calculateTotal(),
+  
   };
 
   const paypalOptions = {
@@ -18,7 +38,7 @@ function Payment() {
     return actions.order.create({
       purchase_units: [
         {
-          description: product.description,
+         
           amount: {
             currency_code: "BRL",
             value: product.price,
