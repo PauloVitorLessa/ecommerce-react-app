@@ -69,6 +69,15 @@ class NavBar extends React.Component {
                           </a>
                           <ul className="dropdown-menu">
                             <li>
+                              <Link
+                                to={"/updateCliente"}
+                                className="dropdown-item"
+                                href="/updateCliente"
+                              >
+                                Atualizar Dados
+                              </Link>
+                            </li>
+                            <li>
                               <Link to={"/regProd"} className="dropdown-item">
                                 Cadastrar Produtos
                               </Link>
@@ -119,7 +128,10 @@ class NavBar extends React.Component {
                           </a>
                           <ul className="dropdown-menu">
                             <li>
-                              <a className="dropdown-item" href="/updateCliente">
+                              <a
+                                className="dropdown-item"
+                                href="/updateCliente"
+                              >
                                 Atualizar Dados
                               </a>
                             </li>

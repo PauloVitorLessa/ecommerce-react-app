@@ -23,7 +23,7 @@ function Login() {
       .catch((error) => {
         if (!error?.response) {
           setErrMsg("Sem Resposta do servidor.");
-        } else if (error.response.status === 400) {
+        } else if (error.response.status === 401) {
           setErrMsg("Senha ou usuário inválidos");
           console.log(error.response);
         } else {
