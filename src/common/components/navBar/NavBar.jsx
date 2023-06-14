@@ -62,7 +62,7 @@ class NavBar extends React.Component {
                       <>
                         <div className="nav-item dropdown conta">
                           <a
-                            className="nav-link dropdown-toggle nav-link nav-item navbar-nav"
+                            className="nav-link dropdown-toggle"
                             href="#"
                             role="button"
                             data-bs-toggle="dropdown"
@@ -115,9 +115,9 @@ class NavBar extends React.Component {
                             </li>
                           </ul>
                         </div>
-                        <p className="nav-link nav-item navbar-nav">
+                        <P>
                           Bem vindo{"(a)"}, {getSession("user").nome}
-                        </p>
+                        </P>
                       </>
                     );
                     //Renderiza se o usuário não for administrador
