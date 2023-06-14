@@ -1,106 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import Loading from '../../assets/loading.png'
+import carrinho from '../../assets/carrinho-de-compras.png'
+import { Link } from "react-router-dom";
+import {
+  Container,
+  CardContainer,
+  AddToCartButton,
+  CartContainer,
+  CartItem,
+  CartItemImage,
+  CartItemName,
+  CartItemQuantity,
+  CartItemButtons,
+  CartItemButton,
+  CheckoutButton,
+  LoadingContainer,
+  ProdutosConteiner,
+  ToggleCartButton,
+} from "./Shop.js";
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  width: 300px;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const CardImage = styled.img`
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-`;
-
-const AddToCartButton = styled.button`
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #e90000;
-  border: none;
-  cursor: pointer;
-`;
-
-const CartContainer = styled.div`
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background-color: #a0accf;
-  padding: 10px;
-  border: 1px solid #ccc;
-`;
-
-const CartItem = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const CartItemImage = styled.img`
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  margin-right: 10px;
-`;
-
-const CartItemName = styled.span`
-  flex-grow: 1;
-  margin-right: 10px;
-`;
-
-const CartItemQuantity = styled.span`
-  margin-right: 10px;
-`;
-
-const CartItemButtons = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CartItemButton = styled.button`
-  width: auto;
-  margin-right: 5px;
-  padding: 5px;
-  background-color: #ee1212;
-  border: none;
-  cursor: pointer;
-`;
-
-const CheckoutButton = styled.button`
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #dd0b0b;
-  border: none;
-  cursor: pointer;
-`;
 
 function Shop() {
   const [prodList, setProdList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [filtroMaior, setFiltroMaior] = useState(1000)
+  const [filtroMenor, setFiltroMenor] = useState(0)
+  const [cartVisible, setCartVisible] = useState(false);
 
   useEffect(() => {
     const savedCartItems = sessionStorage.getItem("cartItems");
@@ -108,12 +35,26 @@ function Shop() {
       setCartItems(JSON.parse(savedCartItems));
     }
 
+    //checar se tem um user 
+    const handleCheckout = () => {
+      const user = sessionStorage.getItem("user");
+      if (!user) {
+        alert("Faça o login primeiro!");
+      } else {
+        console.log("Compra finalizada!");
+        history.push("/payments");
+      }
+    };
+
+
     async function fetchData() {
       try {
+        setLoading(true);
         const response = await axios.get(
           "https://api-restful-trabalho-final-production.up.railway.app/api/produtos"
         );
         setProdList(response.data);
+        setLoading(false);
       } catch (error) {
         console.log(error.response);
         setProdList([]);
@@ -127,12 +68,10 @@ function Shop() {
     sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  //funcao pra  ve se o tem o produto no carrinho
   const addToCart = (prod) => {
     const itemIndex = cartItems.findIndex(
       (item) => item.idProduto === prod.idProduto
     );
-
 
     if (itemIndex === -1) {
       setCartItems([...cartItems, { ...prod, quantity: 1 }]);
@@ -184,57 +123,94 @@ function Shop() {
     console.log("Compra finalizada!");
   };
 
+  const toggleCartVisibility = () => {
+    setCartVisible(!cartVisible);
+  };
   return (
     <>
       <Container>
-        <CardContainer>
-          {prodList.map((prod) => (
-            <Card key={prod.idProduto}>
-              <CardImage
-                src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${prod.idProduto}/img`}
-                alt={prod.nome}
-              />
-              <h5>{prod.nome}</h5>
-              <p>{prod.descricao}</p>
-              <h5>R$ {prod.valorUnitario}</h5>
-              <AddToCartButton onClick={() => addToCart(prod)}>
-                Adicionar ao Carrinho
-              </AddToCartButton>
-            </Card>
-          ))}
-        </CardContainer>
-      </Container>
 
-      {cartItems.length > 0 && (
-        <CartContainer>
-          <h3>Carrinho de Compras</h3>
-          {cartItems.map((item) => (
-            <CartItem key={item.idProduto}>
-              <CartItemImage
-                src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${item.idProduto}/img`}
-                alt={item.nome}
-              />
-              <CartItemName>{item.nome}</CartItemName>
-              <CartItemButtons>
-                <CartItemButton onClick={() => decreaseQuantity(item)}>
-                  -
-                </CartItemButton>
-                <CartItemQuantity>{item.quantity}</CartItemQuantity>
-                <CartItemButton onClick={() => increaseQuantity(item)}>
-                  +
-                </CartItemButton>
-                <CartItemButton onClick={() => removeFromCart(item)}>
-                  Remover
-                </CartItemButton>
-              </CartItemButtons>
-            </CartItem>
-          ))}
-          <p>Total: R$ {calculateTotal()}</p>
-          <CheckoutButton onClick={handleCheckout}>
-            Finalizar Compra
-          </CheckoutButton>
-        </CartContainer>
-      )}
+        <LoadingContainer>
+          {loading ? <img className="loading" src={Loading} alt="loading"></img> :
+            <ProdutosConteiner>
+              <div className="filtro">
+                <h4>Filtros de preço:</h4>
+                <h6>Maior valor:</h6>
+                <input type="number" min="10" max="10000" value={filtroMaior} onChange={(e) => setFiltroMaior(e.target.value)} /> <br /> <br />
+                <h6>Menor valor:</h6>
+                <input type="number" min="0" max="10000" value={filtroMenor} onChange={(e) => setFiltroMenor(e.target.value)} />
+              </div>
+              {prodList.filter((prod) => prod.valorUnitario < filtroMaior + 1 & prod.valorUnitario > filtroMenor - 1).map((produto) => {
+                return (
+                  <CardContainer key={produto.idProduto}>
+                    <div className="Card" >
+                      <img
+                        src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto.idProduto}/img`}
+                        alt={produto.nome}
+                      />
+                      <div className="cardBody">
+                        <h6 className="card-title">{produto.nome}</h6>
+                        <p className="card-descrition">{produto.descricao}</p>
+                      </div>
+                      <h6 className="card-price">R$ {produto.valorUnitario}</h6>
+                      <AddToCartButton onClick={() => addToCart(produto)}>
+                        <img src={carrinho} alt={carrinho} />
+                      </AddToCartButton>
+                    </div>
+                  </CardContainer>
+
+                );
+              })}
+
+            </ProdutosConteiner>
+          }
+        </LoadingContainer>
+
+        {cartItems.length > 0 && cartVisible && (
+          <CartContainer>
+            <h3>Carrinho de Compras</h3>
+            {cartItems.map((item) => (
+              <CartItem key={item.idProduto}>
+                <CartItemImage
+                  src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${item.idProduto}/img`}
+                  alt={item.nome}
+                />
+                <CartItemName>{item.nome}</CartItemName>
+                <CartItemButtons>
+                  <CartItemButton onClick={() => decreaseQuantity(item)}>
+                    -
+                  </CartItemButton>
+                  <CartItemQuantity>{item.quantity}</CartItemQuantity>
+                  <CartItemButton onClick={() => increaseQuantity(item)}>
+                    +
+                  </CartItemButton>
+                  <CartItemButton onClick={() => removeFromCart(item)}>
+                    Remover
+                  </CartItemButton>
+                </CartItemButtons>
+              </CartItem>
+            ))}
+            <p>Total: R$ {calculateTotal()}</p>
+            <Link to="/payments"/>
+
+
+              {sessionStorage.getItem("user") ? (
+                <Link to="/payments">
+                  <CheckoutButton onClick={handleCheckout}>
+                    Finalizar Compra
+                  </CheckoutButton>
+                </Link>
+              ) : (
+                <button onClick={() => alert("Faça o login primeiro!")}>
+                  Finalizar Compra
+                </button>
+              )}
+          </CartContainer>
+        )}
+      </Container>
+        <ToggleCartButton onClick={toggleCartVisibility}>
+          {cartVisible ? "Esconder Carrinho" : "Mostrar Carrinho"}
+        </ToggleCartButton>
     </>
   );
 }

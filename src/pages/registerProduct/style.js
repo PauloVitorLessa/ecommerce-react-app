@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const ContentContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;;
   place-items: center;
   gap: 20px;
   min-height: 100vh;
