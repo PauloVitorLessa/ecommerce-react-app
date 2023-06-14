@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Loading from '../../assets/loading.png'
-import carrinho from '../../assets/carrinho-de-compras.png'
+import Loading from "../../assets/loading.png";
+import carrinho from "../../assets/carrinho-de-compras.png";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -21,24 +21,13 @@ import {
   ToggleCartButton,
 } from "./Shop.js";
 
-const ToggleCartButton = styled.button`
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: #a0accf;
-  padding: 10px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-`;
-
-
 function Shop() {
   const [prodList, setProdList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
   const [loading, setLoading] = useState(false);
-  const [filtroMaior, setFiltroMaior] = useState(1000)
-  const [filtroMenor, setFiltroMenor] = useState(0)
+  const [filtroMaior, setFiltroMaior] = useState(1000);
+  const [filtroMenor, setFiltroMenor] = useState(0);
   const [cartVisible, setCartVisible] = useState(false);
 
   useEffect(() => {
@@ -47,7 +36,7 @@ function Shop() {
       setCartItems(JSON.parse(savedCartItems));
     }
 
-    //checar se tem um user 
+    //checar se tem um user
     const handleCheckout = () => {
       const user = sessionStorage.getItem("user");
       if (!user) {
@@ -57,7 +46,6 @@ function Shop() {
         history.push("/payments");
       }
     };
-
 
     async function fetchData() {
       try {
@@ -142,42 +130,61 @@ function Shop() {
   return (
     <>
       <Container>
-
-
         <LoadingContainer>
-          {loading ? <img className="loading" src={Loading} alt="loading"></img> :
+          {loading ? (
+            <img className="loading" src={Loading} alt="loading"></img>
+          ) : (
             <ProdutosConteiner>
               <div className="filtro">
                 <h4>Filtros de preço:</h4>
                 <h6>Maior valor:</h6>
-                <input type="number" min="10" max="10000" value={filtroMaior} onChange={(e) => setFiltroMaior(e.target.value)} /> <br /> <br />
+                <input
+                  type="number"
+                  min="10"
+                  max="10000"
+                  value={filtroMaior}
+                  onChange={(e) => setFiltroMaior(e.target.value)}
+                />{" "}
+                <br /> <br />
                 <h6>Menor valor:</h6>
-                <input type="number" min="0" max="10000" value={filtroMenor} onChange={(e) => setFiltroMenor(e.target.value)} />
+                <input
+                  type="number"
+                  min="0"
+                  max="10000"
+                  value={filtroMenor}
+                  onChange={(e) => setFiltroMenor(e.target.value)}
+                />
               </div>
-              {prodList.filter((prod) => prod.valorUnitario < filtroMaior + 1 & prod.valorUnitario > filtroMenor - 1).map((produto) => {
-                return (
-                  <CardContainer key={produto.idProduto}>
-                    <div className="Card" >
-                      <img
-                        src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto.idProduto}/img`}
-                        alt={produto.nome}
-                      />
-                      <div className="cardBody">
-                        <h6 className="card-title">{produto.nome}</h6>
-                        <p className="card-descrition">{produto.descricao}</p>
+              {prodList
+                .filter(
+                  (prod) =>
+                    (prod.valorUnitario < filtroMaior + 1) &
+                    (prod.valorUnitario > filtroMenor - 1)
+                )
+                .map((produto) => {
+                  return (
+                    <CardContainer key={produto.idProduto}>
+                      <div className="Card">
+                        <img
+                          src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto.idProduto}/img`}
+                          alt={produto.nome}
+                        />
+                        <div className="cardBody">
+                          <h6 className="card-title">{produto.nome}</h6>
+                          <p className="card-descrition">{produto.descricao}</p>
+                        </div>
+                        <h6 className="card-price">
+                          R$ {produto.valorUnitario}
+                        </h6>
+                        <AddToCartButton onClick={() => addToCart(produto)}>
+                          <img src={carrinho} alt={carrinho} />
+                        </AddToCartButton>
                       </div>
-                      <h6 className="card-price">R$ {produto.valorUnitario}</h6>
-                      <AddToCartButton onClick={() => addToCart(produto)}>
-                        <img src={carrinho} alt={carrinho} />
-                      </AddToCartButton>
-                    </div>
-                  </CardContainer>
-
-                );
-              })}
-
+                    </CardContainer>
+                  );
+                })}
             </ProdutosConteiner>
-          }
+          )}
         </LoadingContainer>
 
         {cartItems.length > 0 && cartVisible && (
@@ -205,27 +212,25 @@ function Shop() {
               </CartItem>
             ))}
             <p>Total: R$ {calculateTotal()}</p>
-            <Link to="/payments"/>
+            <Link to="/payments" />
 
-
-              {sessionStorage.getItem("user") ? (
-                <Link to="/payments">
-                  <CheckoutButton onClick={handleCheckout}>
-                    Finalizar Compra
-                  </CheckoutButton>
-                </Link>
-              ) : (
-                <button onClick={() => alert("Faça o login primeiro!")}>
+            {sessionStorage.getItem("user") ? (
+              <Link to="/payments">
+                <CheckoutButton onClick={handleCheckout}>
                   Finalizar Compra
-                </button>
-              )}
+                </CheckoutButton>
+              </Link>
+            ) : (
+              <button onClick={() => alert("Faça o login primeiro!")}>
+                Finalizar Compra
+              </button>
+            )}
           </CartContainer>
         )}
       </Container>
-        <ToggleCartButton onClick={toggleCartVisibility}>
-          {cartVisible ? "Esconder Carrinho" : "Mostrar Carrinho"}
-        </ToggleCartButton>
-
+      <ToggleCartButton onClick={toggleCartVisibility}>
+        {cartVisible ? "Esconder Carrinho" : "Mostrar Carrinho"}
+      </ToggleCartButton>
     </>
   );
 }
