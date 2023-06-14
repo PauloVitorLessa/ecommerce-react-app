@@ -230,6 +230,7 @@ export const CartItemButton = styled.button`
   border-radius: 20px;
   border: none;
   cursor: pointer;
+
 `;
 
 export const CheckoutButton = styled.button`
@@ -239,6 +240,13 @@ export const CheckoutButton = styled.button`
   background-color: #282d32;
   border: none;
   cursor: pointer;
+  transition: 0.4s;
+
+  :hover{
+    transform: scale(1.1);
+    border: 2px solid #282d32;
+  }
+
 `;
 
 export const ToggleCartButton = styled.button`
@@ -249,4 +257,10 @@ export const ToggleCartButton = styled.button`
   padding: 10px;
   border: 2px solid #282d32;
   cursor: pointer;
+  transition: 0.4s;
+
+  :hover{
+    transform: scale(1.1);
+    border: 2px solid #282d32;
+  }
 `;

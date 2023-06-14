@@ -21,15 +21,6 @@ import {
   ToggleCartButton,
 } from "./Shop.js";
 
-const ToggleCartButton = styled.button`
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: #a0accf;
-  padding: 10px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-`;
 
 
 function Shop() {

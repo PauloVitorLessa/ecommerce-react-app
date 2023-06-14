@@ -5,13 +5,12 @@ export const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #ad7dd1;
   h2 {
-    color: #570e8c;
+    color: white;
   }
 
   .errmsg {
-    background-color: lightpink;
+    background-color: #282d32;
     color: firebrick;
     font-weight: bold;
     padding: 0.5rem;
@@ -25,13 +24,14 @@ export const LoginFormWrapper = styled.form`
   align-items: center;
   padding: 20px;
   border-radius: 5%;
-  background: #ffffff;
-  border: 1px solid #ccc;
+  background: #282d32;
+  border: 1px solid #282d32;
   box-shadow: 27px 16px 3px 0 #570e8c;
+  color: white;
 
   a {
     padding-top: 15px;
-    color: #570e8c;
+    color: white;
   }
 `;
 
@@ -44,15 +44,16 @@ export const Label = styled.label`
 export const Input = styled.input`
   padding: 8px;
   margin-bottom: 10px;
+  background-color: #601860;
   width: 250px;
-  border: 1px solid #000;
+  border-color: #601860;
   border-radius: 20px;
 `;
 
 export const Button = styled.button`
   padding: 8px 16px;
-  background-color: #4caf50;
-  color: #fff;
+  background-color: #ad7dd1;
+  color: #282d32 ;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -60,5 +61,6 @@ export const Button = styled.button`
 
   &:hover {
     transform: scale(1.1);
+    box-shadow: 7px 8px 14px 3px #601860;
   }
 `;

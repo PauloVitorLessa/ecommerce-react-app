@@ -55,8 +55,18 @@ export const ProductsListContainer = styled.div`
 export const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  background-color: #282d32;
+  padding: 20px;
+  border-radius: 13px;
+  color: white;
 
   gap: 20px;
+
+  ul{
+    background-color: #601860;
+    border-radius: 13px;
+    border-color: #601860;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -66,9 +76,24 @@ export const FormContainer = styled.div`
   }
   input {
     margin-bottom: 10px;
+    background-color: #601860;
+    border-color: #601860;
+    border-radius: 20px;
   }
   button {
-    margin-top: 20px;
+    padding: 8px 16px;
+    margin-top: 9px;
+    background-color: #ad7dd1;
+    color: #282d32 ;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 7px 8px 14px 3px #601860;
+  }
   }
 `;
 
@@ -80,6 +105,7 @@ export const CategoriaListContainer = styled.div`
 export const Card_container = styled.div`
   display: flex;
   flex-direction: column;
+
 `;
 
 export const Card_body = styled.div`
@@ -111,5 +137,6 @@ export const Img_container = styled.div`
 
   img {
     width: 200px;
+    border-radius: 5px;
   }
 `;

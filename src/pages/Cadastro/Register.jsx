@@ -3,7 +3,9 @@ import { Api } from '../../services/api'
 
 
 import {
-  
+  FormContainer,
+  ContentContainer,
+
 } from "./Register";
 
 export function Register() {
@@ -18,49 +20,54 @@ export function Register() {
 
   const handleSignup = () => {
     if (!name | !email | !password | !confirmPassword) {
-        SetError("Preencha todos os campos");
-        return;
+      SetError("Preencha todos os campos");
+      return;
     } else if (password !== confirmPassword) {
-        SetError("As senhas não são iguais");
-        return;
+      SetError("As senhas não são iguais");
+      return;
     } else {
-        alert("Usuário cadatrado com sucesso!");
+      alert("Usuário cadatrado com sucesso!");
     }
   };
 
-  function CadastrarUsuario (){
+  function CadastrarUsuario() {
     Api.post(`/cliente`);
   }
 
   return (
-    <form onSubmit={handleSignup}>
-      <label>
-        Nome:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Senha:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Confirmação de Senha:
-        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        CEP:
-        <input type="text" value={cep} onChange={(e) => setCep(e.target.value)} />
-      </label>
-      <br />
-      <button type="submit">Cadastrar</button>
-    </form>
+    <ContentContainer>
+      <h2>Cadastro</h2>
+      <FormContainer>
+        <form onSubmit={handleSignup}>
+          <label>
+            Nome: <br />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          </label>
+          <br />
+          <label>
+            Email: <br />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <br />
+          <label>
+            Senha: <br />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          <br />
+          <label>
+            Confirmação de Senha: <br />
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          </label>
+          <br />
+          <label>
+            CEP: <br />
+            <input type="text" value={cep} onChange={(e) => setCep(e.target.value)} />
+          </label>
+          <br />
+          <button type="submit">Cadastrar</button>
+        </form>
+      </FormContainer>
+    </ContentContainer>
   );
 
 }
