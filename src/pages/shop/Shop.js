@@ -182,7 +182,9 @@ export const CartContainer = styled.div`
   padding: 10px;
   border: 2px solid #282d32;
   border-radius: 13px;
-
+  height: 500px;
+  overflow-y: auto;  
+  
   h4{
     text-align: center;
     border-radius: 13px;
@@ -197,6 +199,7 @@ export const CartItem = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  
 `;
 
 export const CartItemImage = styled.img`
