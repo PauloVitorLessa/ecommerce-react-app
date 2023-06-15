@@ -231,7 +231,12 @@ function UpdateProduct() {
             <label htmlFor="arquivo" className="arquivo">
               Selecionar Imagem
             </label>
-            <input className="SelectImagem" type="file" onChange={handleImagePreview} id="arquivo" />
+            <input
+              className="SelectImagem"
+              type="file"
+              onChange={handleImagePreview}
+              id="arquivo"
+            />
           </Card_container>
           <FormContainer>
             <form

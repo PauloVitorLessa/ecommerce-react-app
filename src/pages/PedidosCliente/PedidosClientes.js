@@ -9,6 +9,10 @@ export const ContentContainer = styled.div`
   min-height: 100vh;
   flex-direction: column;
   background-color: #ad7dd1;
+
+  img {
+    width: 50px;
+  }
 `;
 
 export const Title = styled.div`
@@ -42,6 +46,23 @@ export const Pedido = styled.div`
 `;
 
 export const ItemPedido = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  background-color: #282d32;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 13px;
+  color: white;
+
+  h3 {
+    color: white;
+    margin: 0 0 20px 0;
+  }
+`;
+
+export const Produto = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

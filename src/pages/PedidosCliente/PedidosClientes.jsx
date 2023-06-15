@@ -6,74 +6,101 @@
 
 import { useEffect, useState } from "react";
 import { Api } from "../../services/api";
-import { ContentContainer, Title, Pedido, ItemPedido } from "./PedidosClientes";
+import {
+  ContentContainer,
+  Title,
+  Pedido,
+  ItemPedido,
+  Produto,
+} from "./PedidosClientes";
+//setItemPedidos(pedidosClienteId[0].cliente.pedido[0].itensPedidos);
 
 const PedidosClientes = () => {
-  const [pedidosCliente, setPedidosClientes] = useState([]);
-  const [itemPedidos, setItemPedidos] = useState([]);
   const [pedidos, setPedidos] = useState([]);
 
   useEffect(() => {
+    const fetchPedidos = async () => {
+      const idCliente = JSON.parse(sessionStorage.getItem("user")).id;
+      //console.log(idCliente);
+
+      Api.get("/pedidos")
+        .then((result) => {
+          const pedidosClienteId = result.data.filter(
+            (pedido) =>
+              pedido.cliente === idCliente ||
+              pedido.cliente.idPedido === idCliente
+          );
+          let pedidosDoCliente = pedidosClienteId;
+          pedidosDoCliente.forEach((element) => {
+            Api.get(`/itempedidos?idPedido=${element.idPedido}`)
+              .then((result) => {
+                element.itensPedidos = result.data;
+              })
+              .catch((error) => {
+                console.log(error.response);
+                console.log("erro api itemPedidos");
+              });
+          });
+          setPedidos(pedidosDoCliente);
+        })
+        .catch((error) => {
+          console.log(error.response);
+          console.log("erro api pedidos");
+        });
+    };
+
     fetchPedidos();
   }, []);
-
-  const fetchPedidos = async () => {
-    const idCliente = JSON.parse(sessionStorage.getItem("user")).id;
-
-    const pedidosTemp = await Api.get(`/pedidos`);
-
-    const pedidosClienteId = pedidosTemp.data.filter(
-      (pedido) => pedido.cliente.idCliente === idCliente
-    );
-    setPedidosClientes(pedidosClienteId);
-    setItemPedidos(pedidosClienteId[0].cliente.pedido[0].itensPedidos);
-  };
-
-  const verificarData = (dataPedido, dataEntrega, dataEnvio) => {
-    if (dataPedido !== null && dataEntrega === null && dataEnvio === null) {
-      return "----";
-    } else if (
-      dataPedido !== null &&
-      dataEnvio === null &&
-      dataEntrega !== null
-    ) {
-      return "Data Envio: " + dataEnvio;
-    } else if (
-      dataPedido !== null &&
-      dataEnvio !== null &&
-      dataEntrega !== null
-    ) {
-      return "Data Entrega: " + dataEntrega;
-    } else {
-      return "Data não fornecida";
-    }
-  };
 
   return (
     <>
       <ContentContainer className="containerPedidos">
         <Title>Pedidos</Title>
-        {pedidosCliente ? (
-          pedidosCliente.map((pedido) => {
+        {pedidos ? (
+          pedidos.map((element) => {
             return (
-              <Pedido key={pedido.idPedido}>
+              <Pedido key={element.idPedido}>
                 <div className="infoPedido">
                   <h3>
-                    Pedido: {pedido.idPedido} - Status: {pedido.status}
+                    Pedido: {element.idPedido} - Status: {element.status}
                   </h3>
 
                   <p>
                     Data Pedido:{" "}
-                    {pedido.dataPedido
+                    {element.dataPedido
                       .slice(0, 10)
                       .split("-")
                       .reverse()
                       .join("/")}
                   </p>
 
-                  <h4>Valor Total: R${pedido.valorTotal}</h4>
-                  <ItemPedido></ItemPedido>
+                  <h4>Valor Total: R${element.valorTotal}</h4>
                 </div>
+                <ItemPedido>
+                  {Object.entries(element.itensPedidos).map(
+                    (produto, index) => {
+                      {
+                        if (produto[1].produto) {
+                          console.log(produto[1]);
+                          return (
+                            <Produto>
+                              <div className="infoPedido">
+                                <h3>Produto:</h3>
+                                <img
+                                  src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto[1].produto}/img`}
+                                  alt={produto.produto}
+                                />
+                                <p>Quantidade: {produto.quantidade}</p>
+                                <p>Valor unitário: R$ {produto.precoVenda}</p>
+                                <h4>Valor Total: R$ {produto.valorLiquido}</h4>
+                              </div>
+                            </Produto>
+                          );
+                        }
+                      }
+                    }
+                  )}
+                </ItemPedido>
               </Pedido>
             );
           })
