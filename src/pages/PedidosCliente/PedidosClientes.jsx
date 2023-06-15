@@ -5,6 +5,7 @@
 //   Seguindo o padrão do Figma
 
 import { useEffect, useState } from "react";
+import UseDidMountEffect from "./UseDidMountEffect";
 import { Api } from "../../services/api";
 import {
   ContentContainer,
@@ -17,6 +18,10 @@ import {
 
 const PedidosClientes = () => {
   const [pedidos, setPedidos] = useState([]);
+  const [itensPedidos, setItenPedidos] = useState([]);
+  const [state, setState] = useState({
+    key: false,
+  });
 
   useEffect(() => {
     const fetchPedidos = async () => {
@@ -30,18 +35,9 @@ const PedidosClientes = () => {
               pedido.cliente === idCliente ||
               pedido.cliente.idPedido === idCliente
           );
-          let pedidosDoCliente = pedidosClienteId;
-          pedidosDoCliente.forEach((element) => {
-            Api.get(`/itempedidos?idPedido=${element.idPedido}`)
-              .then((result) => {
-                element.itensPedidos = result.data;
-              })
-              .catch((error) => {
-                console.log(error.response);
-                console.log("erro api itemPedidos");
-              });
-          });
-          setPedidos(pedidosDoCliente);
+
+          setPedidos(pedidosClienteId);
+          setState(true);
         })
         .catch((error) => {
           console.log(error.response);
@@ -52,12 +48,31 @@ const PedidosClientes = () => {
     fetchPedidos();
   }, []);
 
+  UseDidMountEffect(() => {
+    // react please run me if 'key' changes, but not on initial render
+
+    let copiapedidos = pedidos;
+    copiapedidos.forEach((element) => {
+      Api.get(`/itempedidos?idPedido=${element.idPedido}`)
+        .then((result) => {
+          element.itensPedidos = result.data;
+        })
+        .catch((error) => {
+          console.log(error.response);
+          console.log("erro api itemPedidos");
+        });
+    });
+
+    console.log(copiapedidos);
+    setItenPedidos(copiapedidos);
+  }, [state]);
+
   return (
     <>
       <ContentContainer className="containerPedidos">
         <Title>Pedidos</Title>
-        {pedidos ? (
-          pedidos.map((element) => {
+        {itensPedidos ? (
+          itensPedidos.map((element) => {
             return (
               <Pedido key={element.idPedido}>
                 <div className="infoPedido">
@@ -77,29 +92,24 @@ const PedidosClientes = () => {
                   <h4>Valor Total: R${element.valorTotal}</h4>
                 </div>
                 <ItemPedido>
-                  {Object.entries(element.itensPedidos).map(
-                    (produto, index) => {
-                      {
-                        if (produto[1].produto) {
-                          console.log(produto[1]);
-                          return (
-                            <Produto>
-                              <div className="infoPedido">
-                                <h3>Produto:</h3>
-                                <img
-                                  src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto[1].produto}/img`}
-                                  alt={produto.produto}
-                                />
-                                <p>Quantidade: {produto.quantidade}</p>
-                                <p>Valor unitário: R$ {produto.precoVenda}</p>
-                                <h4>Valor Total: R$ {produto.valorLiquido}</h4>
-                              </div>
-                            </Produto>
-                          );
-                        }
-                      }
-                    }
-                  )}
+                  {element.itensPedidos
+                    .filter((produto) => produto.produto)
+                    .map((produto, index) => {
+                      return (
+                        <Produto key={index}>
+                          <div className="infoPedido">
+                            <h3>Produto:</h3>
+                            <img
+                              src={`https://api-restful-trabalho-final-production.up.railway.app/api/produtos/${produto.produto}/img`}
+                              alt={produto.produto}
+                            />
+                            <p>Quantidade: {produto.quantidade}</p>
+                            <p>Valor unitário: R$ {produto.precoVenda}</p>
+                            <h4>Valor Total: R$ {produto.valorLiquido}</h4>
+                          </div>
+                        </Produto>
+                      );
+                    })}
                 </ItemPedido>
               </Pedido>
             );

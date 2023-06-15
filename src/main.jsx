@@ -23,26 +23,26 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route Component={Home} path="/" />
-        <Route Component={RegisterProduct} path="/regProd" />
-        <Route Component={Login} path="/login" />
-        <Route Component={Register} path="/register" />
-        <Route Component={SignUp} path="/signup" />
-        <Route Component={UpdateProduct} path="/updateProduct" />
-        <Route Component={AboutUs} path="/aboutus" />
-        <Route Component={PedidosClientes} path="/pedido" />
-        <Route Component={Shop} path="/shop" />
-        <Route Component={Payment} path="/payments" />
-        <Route Component={UpdateCliente} path="/updateCliente" />
-        <Route Component={DeleteProduct} path="/delprod" />
-        <Route Component={AllClientes} path="/clientes" />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-    <GlobalStyle />
-  </React.StrictMode>
+  //<React.StrictMode>
+  <BrowserRouter>
+    <NavBar />
+    <Routes>
+      <Route Component={Home} path="/" />
+      <Route Component={RegisterProduct} path="/regProd" />
+      <Route Component={Login} path="/login" />
+      <Route Component={Register} path="/register" />
+      <Route Component={SignUp} path="/signup" />
+      <Route Component={UpdateProduct} path="/updateProduct" />
+      <Route Component={AboutUs} path="/aboutus" />
+      <Route Component={PedidosClientes} path="/pedido" />
+      <Route Component={Shop} path="/shop" />
+      <Route Component={Payment} path="/payments" />
+      <Route Component={UpdateCliente} path="/updateCliente" />
+      <Route Component={DeleteProduct} path="/delprod" />
+      <Route Component={AllClientes} path="/clientes" />
+    </Routes>
+    <Footer />
+  </BrowserRouter>
+  // <GlobalStyle />
+  //</React.StrictMode>
 );
